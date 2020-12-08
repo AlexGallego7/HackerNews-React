@@ -5,16 +5,16 @@ const Header = () => (
     <Router>
         <div className="header">
             <div className="links"/>
-            <img src="https://www.linkpicture.com/q/y18.gif" alt="logo"/><h1>Hacker News</h1>
+            <img src="https://www.linkpicture.com/q/y18.gif" alt="logo"/>
             <div className="links">
-                <Link to={'/newest'}>newest</Link>
-                <Link to={'/ask'}>newest</Link>
-                <Link to={'/'}>newest</Link>
+                <Link to={'/'}>Hacker News | </Link>
+                <Link to={'/newest'}>newest | </Link>
+                <Link to={'/ask'}>ask</Link>
             </div>
         </div>
-        <Route path="/newest" render={ () => <Contribution type={'all'}/> } />
-        <Route path="/ask" render={ () => <Contribution type={'ask'}/> } />
-        <Route path="/" render={ () => <Contribution type={'url'}/> } />
+        <Route exact path="/newest" render={ () => <Contribution type={'all'}/> } />
+        <Route exact path="/ask" render={ () => <Contribution type={'ask'}/> } />
+        <Route exact path="/" render={ () => <Contribution type={'url'}/> } />
     </Router>
 
 )

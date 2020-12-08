@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Contribution from "./contributions/Contribution";
+import Header from "./Header";
 
 ReactDOM.render(
   <React.StrictMode>
-      <Contribution type='url'/>
+      <Header/>
+      <Contribution />
   </React.StrictMode>,
   document.getElementById('root')
 );
