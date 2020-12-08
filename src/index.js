@@ -6,7 +6,7 @@ import Contribution from "./contributions/Contribution";
 
 ReactDOM.render(
   <React.StrictMode>
-      <Contribution />
+      <Contribution type='url'/>
   </React.StrictMode>,
   document.getElementById('root')
 );

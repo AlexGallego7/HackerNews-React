@@ -1,5 +1,6 @@
 import React  from 'react';
 import ContributionView from "./ContributionView";
+import Header from "../Header";
 
 class Contribution extends React.Component {
 
@@ -10,24 +11,27 @@ class Contribution extends React.Component {
         componentDidMount para la url y el fetch
     */
 
-    state = {
-        error: null,
-        type: null,
-        contributions: []
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: null,
+            type: this.props.type,
+            contributions: []
+        }
+        console.log("debug")
     }
 
     componentDidMount() {
 
-        /*
-        if (this.status.type == 'all')
+        let url = ""
+        if (this.state.type === 'all')
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/newest"
-        else if (this.status.type == 'ask')
+        else if (this.state.type === 'ask')
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/ask"
-        else if (this.status.type == 'url')
+        else if (this.state.type === 'url')
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions"
-         */
 
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions"
+
         fetch(url)
             .then(response => response.json())
             .then(
