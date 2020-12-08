@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1c758158-f418-4fc3-a004-627d276d3642" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contributions/Contribution.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/contributions/Contribution.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contributions/ContributionView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/contributions/ContributionView.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,8 +73,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607428350135</updated>
-      <workItem from="1607428351206" duration="7347000" />
+      <workItem from="1607428351206" duration="7688000" />
     </task>
+    <task id="LOCAL-00001" summary="first commit v2">
+      <created>1607436563476</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607436563476</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -85,5 +90,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="first commit v2" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit v2" />
   </component>
 </project>
