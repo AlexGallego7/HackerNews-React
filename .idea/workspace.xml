@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="1c758158-f418-4fc3-a004-627d276d3642" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/stylesheets/ContributionView.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contributions/Contribution.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/contributions/Contribution.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contributions/ContributionView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/contributions/ContributionView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +102,7 @@
       <workItem from="1607428351206" duration="7688000" />
       <workItem from="1607455102856" duration="4187000" />
       <workItem from="1607465779125" duration="3950000" />
+      <workItem from="1607470981902" duration="473000" />
     </task>
     <task id="LOCAL-00001" summary="first commit v2">
       <created>1607436563476</created>
@@ -111,10 +124,43 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="first commit v2" />
     <MESSAGE value="empezando con las rutas" />
     <option name="LAST_COMMIT_MESSAGE" value="empezando con las rutas" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="736" y="360" width="1089" height="713" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607471078217">
+      <screen x="0" y="0" width="2560" height="1409" />
+    </state>
+    <state x="736" y="360" width="1089" height="713" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1409@0.0.2560.1409" timestamp="1607471078217" />
+    <state width="2539" height="404" key="GridCell.Tab.0.bottom" timestamp="1607471368650">
+      <screen x="0" y="0" width="2560" height="1409" />
+    </state>
+    <state width="2539" height="404" key="GridCell.Tab.0.bottom/0.0.2560.1409@0.0.2560.1409" timestamp="1607471368650" />
+    <state width="2539" height="404" key="GridCell.Tab.0.center" timestamp="1607471368649">
+      <screen x="0" y="0" width="2560" height="1409" />
+    </state>
+    <state width="2539" height="404" key="GridCell.Tab.0.center/0.0.2560.1409@0.0.2560.1409" timestamp="1607471368649" />
+    <state width="2539" height="404" key="GridCell.Tab.0.left" timestamp="1607471368649">
+      <screen x="0" y="0" width="2560" height="1409" />
+    </state>
+    <state width="2539" height="404" key="GridCell.Tab.0.left/0.0.2560.1409@0.0.2560.1409" timestamp="1607471368649" />
+    <state width="2539" height="404" key="GridCell.Tab.0.right" timestamp="1607471368649">
+      <screen x="0" y="0" width="2560" height="1409" />
+    </state>
+    <state width="2539" height="404" key="GridCell.Tab.0.right/0.0.2560.1409@0.0.2560.1409" timestamp="1607471368649" />
   </component>
 </project>
