@@ -81,12 +81,13 @@ table, .content{
 .header{
   background-image: url("https://images2.alphacoders.com/774/thumb-1920-774372.jpg");
   color: #000;
-  padding: 4px 6px 6px 6px;
+  padding: 4px 6px 4px 6px;
   z-index: 99;
 }
 
 .header h1{
-  font-size: 12px;
+  font-size: 14.5px;
+  padding-right: 7px;
   color: #000;
   font-weight: bolder;
 }
@@ -95,6 +96,10 @@ table, .content{
   display: inline;
 }
 
+.links{
+  margin-left: 20px;
+
+}
 /* Submissions */
 .url-link{
   display: block;
@@ -106,6 +111,7 @@ table, .content{
 
 .links{
   margin-left: 5px;
+  top: 5px;
 }
 
 .right{

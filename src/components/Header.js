@@ -1,14 +1,14 @@
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-import Contribution from "./contributions/Contribution";
+import Contribution from "../Contributions/Contribution";
+import React from "react";
 
 const Header = () => (
     <Router>
         <div className="header">
-            <div className="links"/>
             <img src="https://www.linkpicture.com/q/y18.gif" alt="logo"/>
             <div className="links">
-                <Link to={'/'}>Hacker News | </Link>
-                <Link to={'/newest'}>newest | </Link>
+                <Link to={'/'}><h1> Hacker News </h1></Link>
+                <Link to={'/newest'}> new | </Link>
                 <Link to={'/ask'}>ask</Link>
             </div>
         </div>
@@ -18,6 +18,5 @@ const Header = () => (
     </Router>
 
 )
-
 
 export default Header
