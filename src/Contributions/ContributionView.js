@@ -17,7 +17,7 @@ const ContributionView = (props) => (
                     </div>
                     <div>
                         <small className="leftmar">
-                            {contribution.points} points by {contribution.user_id}
+                            {contribution.points} points by {contribution.user_id} {contribution.created_at}
                         </small>
                     </div>
                 </li>

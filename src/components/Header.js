@@ -1,9 +1,8 @@
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-import Contribution from "../Contributions/Contribution";
+import {Link} from "react-router-dom";
 import React from "react";
 
-const Header = () => (
-    <Router>
+const Header = () => {
+    return (
         <div className="header">
             <img src="https://www.linkpicture.com/q/y18.gif" alt="logo"/>
             <div className="links">
@@ -12,11 +11,7 @@ const Header = () => (
                 <Link to={'/ask'}>ask</Link>
             </div>
         </div>
-        <Route exact path="/newest" render={ () => <Contribution type={'all'}/> } />
-        <Route exact path="/ask" render={ () => <Contribution type={'ask'}/> } />
-        <Route exact path="/" render={ () => <Contribution type={'url'}/> } />
-    </Router>
+    );
+};
 
-)
-
-export default Header
+export default Header;
