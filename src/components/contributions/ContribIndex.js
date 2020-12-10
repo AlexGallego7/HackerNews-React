@@ -23,6 +23,8 @@ class ContribIndex extends React.Component {
         else if (this.state.type === 'url')
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions"
 
+        console.log(url)
+
         fetch(url)
             .then(response => response.json())
             .then(

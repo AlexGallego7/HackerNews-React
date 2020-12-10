@@ -8,15 +8,12 @@ class ContribShow extends React.Component {
         this.state = {
             error: null,
             id: this.props.match.params.id,
-            contribution: null
+            contribution: []
         }
         console.log(this.props.match.params.id);
     }
 
-    componentWillMount() {
-
-        // CON componenDidMount AQUIIII  NO LLEGA!!!!!!
-        // CON componenWillMount LLEGA, PERO HACE RENDER ANTES DE !!!!!!
+    componentDidMount() {
 
         let url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" +  this.props.match.params.id;
         console.log(url);
@@ -37,9 +34,7 @@ class ContribShow extends React.Component {
     }
 
     render() {
-        console.log("haciendo el render sano")
         const contribution = this.state.contribution
-        console.log(contribution);
         return (
             <div>
                 <ContribShowView contribution={contribution} />
