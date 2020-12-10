@@ -1,6 +1,7 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
-const ContributionView = (props) => (
+const ContribIndexView = (props) => (
     <div className="content">
         <ol className="inline gap">
             {props.contributions.map( (contribution) =>
@@ -12,7 +13,7 @@ const ContributionView = (props) => (
                                 <small style={{marginLeft: '3px'}}>  ({contribution.url})</small>
                             </a>
                         ):(
-                            <a href={"http://localhost:3000/newest"}>{contribution.title}</a>
+                            <Link to={'/contribution/'+ contribution.id }>{contribution.title} </Link>
                         )}
                     </div>
                     <div>
@@ -26,4 +27,4 @@ const ContributionView = (props) => (
     </div>
 );
 
-export default ContributionView
+export default ContribIndexView

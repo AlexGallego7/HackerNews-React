@@ -1,7 +1,7 @@
 import React  from 'react';
-import ContributionView from "./ContributionView";
+import ContribIndexView from "./ContribIndexView";
 
-class Contribution extends React.Component {
+class ContribIndex extends React.Component {
 
     constructor(props) {
         super(props);
@@ -41,10 +41,10 @@ class Contribution extends React.Component {
         const contributions = this.state.contributions
         return (
             <div>
-                <ContributionView contributions={contributions} />
+                <ContribIndexView contributions={contributions} />
             </div>
         );
     }
 }
 
-export default Contribution;
+export default ContribIndex;
