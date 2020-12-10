@@ -1,20 +1,21 @@
 import React  from 'react';
-import ContribShowView from "./ContribShowView";
+import UserShowView from "./UserShowView";
 
-class ContribShow extends React.Component {
+class UserShow extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props)
         this.state = {
             error: null,
             id: this.props.match.params.id,
-            contribution: []
+            user: []
         }
     }
 
     componentDidMount() {
 
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" +  this.state.id
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/users/" +  this.state.id
         console.log(url);
 
         fetch(url)
@@ -23,7 +24,7 @@ class ContribShow extends React.Component {
                 (result) => {
                     console.log(result)
                     this.setState({
-                        contribution: result
+                        user: result
                     })
                 })
             .catch(error => {
@@ -32,13 +33,15 @@ class ContribShow extends React.Component {
     }
 
     render() {
-        const contribution = this.state.contribution
+        const user = this.state.user
         return (
+
             <div>
-                <ContribShowView contribution={contribution} />
+                <UserShowView user={user}/>
             </div>
         );
+
     }
 }
 
-export default ContribShow;
+export default UserShow;

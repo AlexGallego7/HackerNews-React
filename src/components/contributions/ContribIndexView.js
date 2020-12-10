@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import User from "../users/User";
 
 const ContribIndexView = (props) => (
     <div className="content">
@@ -13,15 +14,20 @@ const ContribIndexView = (props) => (
                                 <small style={{marginLeft: '3px'}}>  ({contribution.url})</small>
                             </a>
                         ):(
-                            <Link to={'/contribution/'+ contribution.id }>{contribution.title} </Link>
+                            <Link to={'/contributions/'+ contribution.id }>{contribution.title} </Link>
                         )}
                     </div>
                     <div>
                         <small className="leftmar">
-                            {contribution.points} points by {contribution.user_id} {contribution.created_at}
+                            {contribution.points} points by
+                            <Link to={'users/'+contribution.user_id}>
+                                <User user_id={contribution.user_id}/>
+                            </Link>
+                            {contribution.created_at}
                         </small>
                     </div>
                 </li>
+
             )}
         </ol>
     </div>
