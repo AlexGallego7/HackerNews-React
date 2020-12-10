@@ -17,7 +17,6 @@ const AppRouter = () => {
             <Route exact path="/ask" render={ () => <ContribIndex type={'ask'}/> } />
             <Route exact path="/users/:id" component={UserShow} />
             <Route exact path="/contributions" component={ContribForm}/>
-
         </Router>
     );
 };
