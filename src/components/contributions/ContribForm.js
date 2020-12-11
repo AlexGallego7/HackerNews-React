@@ -35,7 +35,7 @@ class ContribForm extends React.Component {
                 'Content-Type': 'application/json',
                 'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(this.state.content)
         };
 
         fetch(url, requestOptions)
