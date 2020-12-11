@@ -9,10 +9,9 @@ class ContribIndex extends React.Component {
         console.log(props)
         this.state = {
             error: null,
-            url: "https://asw-hackernews-kaai12.herokuapp.com/api" + this.props.location.pathname,
+            url: "https://asw-hackernews-kaai12.herokuapp.com/api" + ((this.props.location.pathname === "/") ? "/contributions" : this.props.location.pathname),
             contributions: [],
             upVotedContributions: [],
-            user_id: (this.props.match !== undefined) ? this.props.match.params.id : null
         }
         console.log("URL :::" + this.state.url)
     }

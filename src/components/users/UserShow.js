@@ -5,7 +5,6 @@ class UserShow extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props)
         this.state = {
             error: null,
             id: this.props.match.params.id,
@@ -16,7 +15,6 @@ class UserShow extends React.Component {
     componentDidMount() {
 
         let url = "https://asw-hackernews-kaai12.herokuapp.com/api/users/" +  this.state.id
-        console.log(url);
 
         fetch(url)
             .then(response => response.json())

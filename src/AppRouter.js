@@ -12,6 +12,7 @@ const AppRouter = () => {
     return (
         <Router>
             <Header />
+            <Route exact path="/" component={ContribIndex}/>
             <Route exact path="/contributions" component={ContribIndex} />
             <Route exact path="/contributions/:id" component={ContribShow} />
             <Route exact path="/newest" component={ContribIndex} />
