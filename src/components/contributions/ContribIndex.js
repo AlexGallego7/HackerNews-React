@@ -81,14 +81,10 @@ class ContribIndex extends React.Component {
              }).catch(error => {
               console.log(error)
          })
-
-         console.log("isaac putilla");
     }
 
     dislike(id,i) {
         const url="https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes"
-        let copyContributions = this.state.contributions;
-        //let meth = vote === 1? 'POST'   : 'DELETE';
         const requestOptions = {
             method: 'DELETE',
             headers: {
@@ -99,11 +95,13 @@ class ContribIndex extends React.Component {
         };
 
         fetch(url, requestOptions)
-            .then(response => response.json())
-            .then(data => data != null?
-                this.deleteUpVotedContribution(data,i): null
-            )
-        console.log("isaac putilla");
+            .then(response => {
+
+            })
+            .then(() => this.deleteUpVotedContribution(i))
+            .catch(error => {
+                console.log(error)
+            })
     }
 
 
@@ -115,8 +113,7 @@ class ContribIndex extends React.Component {
                     <div className="url-link">
                         <small style={{marginRight: '6px'}}>
 
-
-                                <a href="#" onClick={() => this.like(e.id, i,1)}>▲</a>
+                                <a href="#" onClick={() => this.dislike(e.id, i,1)}>▲</a>
 
 
                         </small>
@@ -137,7 +134,7 @@ class ContribIndex extends React.Component {
                             &nbsp;
                             created_at:
                             &nbsp;
-                            {e.created_at}
+                            {e.created_at.substr(0,10) + e.created_at.substr(11,10) + ' |'}
                             <Link to={'contributions/'+ e.id}>
                                 comments
                             </Link>
@@ -160,17 +157,25 @@ class ContribIndex extends React.Component {
 
 
 
-    deleteUpVotedContribution(data, i) {
-        let copyUpVoted = this.state.upVotedContributions.slice();
+    deleteUpVotedContribution( i) {
+        let copyUpVoted = this.state.upVotedContributions;
         let copyContrib = this.state.contributions;
-        copyContrib[i] = data;
-        const index = copyUpVoted.indexOf(data);
+        let index = -1;
+        for ( let k = 0;  i <= copyContrib.length; ++k) {
+            if ( copyUpVoted[k].id === copyContrib[i].id ) {
+                index = k;
+                break;
+            }
+        }
+        console.log(index)
         if ( index > -1 ) {
             copyUpVoted.splice(index,1);
+            copyContrib[i].points -= 1;
+
         }
         this.setState({
             upVotedContributions:copyUpVoted,
-            contributions:copyContrib
+            contributions: copyContrib
         })
     }
 
