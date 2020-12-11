@@ -6,26 +6,20 @@ class ContribIndex extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(props)
         this.state = {
             error: null,
-            type: this.props.type,
+            url: "https://asw-hackernews-kaai12.herokuapp.com/api" + this.props.location.pathname,
             contributions: [],
-            upVotedContributions: []
+            upVotedContributions: [],
+            user_id: (this.props.match !== undefined) ? this.props.match.params.id : null
         }
+        console.log("URL :::" + this.state.url)
     }
-
 
     componentDidMount() {
 
-        let url = ""
-        if (this.state.type === 'all')
-            url = "https://asw-hackernews-kaai12.herokuapp.com/api/newest"
-        else if (this.state.type === 'ask')
-            url = "https://asw-hackernews-kaai12.herokuapp.com/api/ask"
-        else if (this.state.type === 'url')
-            url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions"
-
-        fetch(url)
+        fetch(this.state.url)
             .then(response => response.json())
             .then(
                 (result) => {
@@ -33,7 +27,7 @@ class ContribIndex extends React.Component {
                     this.setState({
                         contributions: result
                     })
-            })
+                })
             .catch(error => {
                 console.log(error)
             })
@@ -48,7 +42,7 @@ class ContribIndex extends React.Component {
         };
 
         let urlVoted = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/upvoted/"
-        fetch(urlVoted,requestOptions)
+        fetch(urlVoted, requestOptions)
             .then(response => response.json())
             .then(
                 (result) => {
@@ -62,8 +56,8 @@ class ContribIndex extends React.Component {
             })
     }
 
-     like(id,i) {
-        const url="https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes";
+    like(id, i) {
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes";
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -73,18 +67,18 @@ class ContribIndex extends React.Component {
             body: null
         };
 
-         fetch(url, requestOptions)
-             .then(response => response.json())
-             .then(data => {
-                 this.addUpVotedContribution(data, i)
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                this.addUpVotedContribution(data, i)
 
-             }).catch(error => {
-              console.log(error)
-         })
+            }).catch(error => {
+            console.log(error)
+        })
     }
 
-    dislike(id,i) {
-        const url="https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes"
+    dislike(id, i) {
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes"
         const requestOptions = {
             method: 'DELETE',
             headers: {
@@ -95,8 +89,7 @@ class ContribIndex extends React.Component {
         };
 
         fetch(url, requestOptions)
-            .then(response => {
-
+            .then(() => {
             })
             .then(() => this.deleteUpVotedContribution(i))
             .catch(error => {
@@ -105,39 +98,82 @@ class ContribIndex extends React.Component {
     }
 
 
+    deleteUpVotedContribution(i) {
+        let copyUpVoted = this.state.upVotedContributions;
+        let copyContrib = this.state.contributions;
+        let index = -1;
+        for (let k = 0; i <= copyContrib.length; ++k) {
+            if (copyUpVoted[k].id === copyContrib[i].id) {
+                index = k;
+                break;
+            }
+        }
+        console.log(index)
+        if (index > -1) {
+            copyUpVoted.splice(index, 1);
+            copyContrib[i].points -= 1;
+
+        }
+        this.setState({
+            upVotedContributions: copyUpVoted,
+            contributions: copyContrib
+        })
+    }
+
+    addUpVotedContribution(data, i) {
+        console.log(data);
+        if (!data.hasOwnProperty("code")) {
+            let copyUpVoted = this.state.upVotedContributions.slice();
+            copyUpVoted.push(data);
+            let copyContrib = this.state.contributions;
+            copyContrib[i] = data;
+            this.setState({
+                upVotedContributions: copyUpVoted,
+                contributions: copyContrib
+            })
+        }
+    }
+
+    checkIfLiked(e) {
+        let copyUpvoted = this.state.upVotedContributions;
+        for (let i = 0; i < copyUpvoted.length; ++i) {
+            if (copyUpvoted[i].id === e.id) return true;
+        }
+        return false;
+    }
 
     render() {
-        let contributions = this.state.contributions.map((e,i) => {
+        let contributions = this.state.contributions.map((e, i) => {
             return (
                 <li style={{marginBottom: '10px'}} key={i}>
                     <div className="url-link">
                         <small style={{marginRight: '6px'}}>
-                            { this.checkIfLiked(e)?
-                                (<a href="#" onClick={() => this.dislike(e.id, i, 1)}>▼</a>):
+                            {this.checkIfLiked(e) ?
+                                (<a href="#" onClick={() => this.dislike(e.id, i, 1)}>▼</a>) :
                                 (<a href="#" onClick={() => this.like(e.id, i, 1)}>▲</a>)
                             }
 
 
                         </small>
-                        { e.url?(
+                        {e.url ? (
                             <a href={e.url}>{e.title}
-                                <small style={{marginLeft: '3px'}}>  ({e.url})</small>
+                                <small style={{marginLeft: '3px'}}> ({e.url})</small>
                             </a>
-                        ):(
-                            <Link to={'/contributions/'+ e.id }>{e.title} </Link>
+                        ) : (
+                            <Link to={'/contributions/' + e.id}>{e.title} </Link>
                         )}
                     </div>
                     <div>
                         <small className="leftmar">
                             {e.points} by
-                            <Link to={'users/'+e.user_id}>
+                            <Link to={'users/' + e.user_id}>
                                 <User user_id={e.user_id}/>
                             </Link>
                             &nbsp;
                             created_at:
                             &nbsp;
-                            {e.created_at.substr(0,10) + ' ' + e.created_at.substr(11,10) + ' | '}
-                            <Link to={'contributions/'+ e.id}>
+                            {e.created_at.substr(0, 10) + ' ' + e.created_at.substr(11, 10) + ' | '}
+                            <Link to={'contributions/' + e.id}>
                                 comments
                             </Link>
                         </small>
@@ -155,52 +191,6 @@ class ContribIndex extends React.Component {
                 </ol>
             </div>
         );
-    }
-
-
-
-    deleteUpVotedContribution( i) {
-        let copyUpVoted = this.state.upVotedContributions;
-        let copyContrib = this.state.contributions;
-        let index = -1;
-        for ( let k = 0;  i <= copyContrib.length; ++k) {
-            if ( copyUpVoted[k].id === copyContrib[i].id ) {
-                index = k;
-                break;
-            }
-        }
-        console.log(index)
-        if ( index > -1 ) {
-            copyUpVoted.splice(index,1);
-            copyContrib[i].points -= 1;
-
-        }
-        this.setState({
-            upVotedContributions:copyUpVoted,
-            contributions: copyContrib
-        })
-    }
-
-    addUpVotedContribution( data , i) {
-        console.log(data);
-        if ( ! data.hasOwnProperty("code")) {
-            let copyUpVoted = this.state.upVotedContributions.slice();
-            copyUpVoted.push(data);
-            let copyContrib = this.state.contributions;
-            copyContrib[i] = data;
-            this.setState({
-                upVotedContributions: copyUpVoted,
-                contributions: copyContrib
-            })
-        }
-    }
-
-    checkIfLiked(e) {
-        let copyUpvoted = this.state.upVotedContributions;
-        for (let i = 0; i < copyUpvoted.length; ++i ) {
-            if ( copyUpvoted[i].id ===  e.id) return true;
-        }
-        return false;
     }
 }
 

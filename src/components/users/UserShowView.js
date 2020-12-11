@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const UserShowView = (props) => (
     <div className="content">
@@ -19,7 +20,20 @@ const UserShowView = (props) => (
                 <strong>About:</strong>&emsp;&emsp;&nbsp;
                 {props.user.about}
             </p>
+            <p>
+                <Link to={'/contributions/users/' + props.user.id} className="wow">contributions</Link>
+            </p>
+            <p>
+                <Link to={'/threads/' + props.user.id} className="wow">comments</Link>
+            </p>
+            <p>
+                <Link to={'/upvoted/submissions'} className="wow">upvoted contributions</Link>
+            </p>
+            <p>
+                <Link to={'/upvoted/comments'} className="wow">upvoted comments</Link>
+            </p>
         </div>
+
     </div>
 );
 

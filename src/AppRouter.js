@@ -12,14 +12,15 @@ const AppRouter = () => {
     return (
         <Router>
             <Header />
-            <Route exact path="/" render={ () => <ContribIndex type={'url'}/> } />
+            <Route exact path="/contributions" component={ContribIndex} />
             <Route exact path="/contributions/:id" component={ContribShow} />
-            <Route exact path="/newest" render={ () => <ContribIndex type={'all'}/> } />
-            <Route exact path="/ask" render={ () => <ContribIndex type={'ask'}/> } />
+            <Route exact path="/newest" component={ContribIndex} />
+            <Route exact path="/ask" component={ContribIndex} />
             <Route exact path="/users/:id" component={UserShow} />
             <Route exact path="/comments/:id" render={ () => <ReplyNew type={'comment'}/> } />
             <Route exact path="/replies/:id" render={ () => <ReplyNew type={'reply'}/> } />
             <Route exact path="/submit" component={ContribForm}/>
+            <Route exact path="/contributions/users/:id" component={ContribIndex}/>
         </Router>
     );
 };
