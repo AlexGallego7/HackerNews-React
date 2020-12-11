@@ -5,6 +5,7 @@ import User from "../users/User";
 
 const ContribShowView = (props) => {
     return (
+
         <div className="content">
             <div className="url-link">
                 <small style={{marginRight: '6px'}}>▲</small>
@@ -25,8 +26,14 @@ const ContribShowView = (props) => {
                     {props.contribution.created_at}
                 </small>
             </div>
+            <div style={{marginLeft: '15px'}} className="field">
+                <textarea name="textarea" rows="6" cols="60"></textarea>
+            </div>
             <div>
                 {props.contribution.text}
+            </div>
+            <div style={{marginLeft: '15px'}} className="actions">
+                <input type="submit" value="add comment" onClick/>
             </div>
         </div>
 
