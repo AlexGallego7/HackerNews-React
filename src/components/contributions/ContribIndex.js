@@ -9,9 +9,11 @@ class ContribIndex extends React.Component {
         this.state = {
             error: null,
             type: this.props.type,
-            contributions: []
+            contributions: [],
+            upVotedContributions: []
         }
     }
+
 
     componentDidMount() {
 
@@ -35,11 +37,33 @@ class ContribIndex extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+            },
+            body: null
+        };
+
+        let urlVoted = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/upvoted/"
+        fetch(urlVoted,requestOptions)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    console.log(result)
+                    this.setState({
+                        upVotedContributions: result
+                    })
+                })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
-    like(id) {
-        const url="https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes"
-
+     like(id,i) {
+        const url="https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes";
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -49,44 +73,119 @@ class ContribIndex extends React.Component {
             body: null
         };
 
-        fetch(url, requestOptions)
-            .then(response => response.json())
-            .then(data => console.log(data))
+         fetch(url, requestOptions)
+             .then(response => response.json())
+             .then(data => {
+                 this.addUpVotedContribution(data, i)
+
+             }).catch(error => {
+              console.log(error)
+         })
+
+         console.log("isaac putilla");
     }
 
+    dislike(id,i) {
+        const url="https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes"
+        let copyContributions = this.state.contributions;
+        //let meth = vote === 1? 'POST'   : 'DELETE';
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => data != null?
+                this.deleteUpVotedContribution(data,i): null
+            )
+        console.log("isaac putilla");
+    }
+
+
+
     render() {
-        const contributions = this.state.contributions
+        let contributions = this.state.contributions.map((e,i) => {
+            return (
+                <li key={i}>
+                    <div className="url-link">
+                        <small style={{marginRight: '6px'}}>
+
+
+                                <a href="#" onClick={() => this.like(e.id, i,1)}>▲</a>
+
+
+                        </small>
+                        { e.url?(
+                            <a href={e.url}>{e.title}
+                                <small style={{marginLeft: '3px'}}>  ({e.url})</small>
+                            </a>
+                        ):(
+                            <Link to={'/contributions/'+ e.id }>{e.title} </Link>
+                        )}
+                    </div>
+                    <div>
+                        <small className="leftmar">
+                            {e.points} by
+                            <Link to={'users/'+e.user_id}>
+                                <User user_id={e.user_id}/>
+                            </Link>
+                            &nbsp;
+                            created_at:
+                            &nbsp;
+                            {e.created_at}
+                            <Link to={'contributions/'+ e.id}>
+                                comments
+                            </Link>
+                        </small>
+                    </div>
+                </li>
+            )
+        })
         return (
             <div className="content">
                 <ol className="inline gap">
-                    {contributions.map( (contribution) =>
-                        <li style={{marginBottom: '3px'}}>
-                            <div className="url-link">
-                                <small style={{marginRight: '6px'}}>
-                                    <a href="#" onClick={this.like(contribution.id)}>▲</a>
-                                </small>
-                                { contribution.url?(
-                                    <a href={contribution.url}>{contribution.title}
-                                        <small style={{marginLeft: '3px'}}>  ({contribution.url})</small>
-                                    </a>
-                                ):(
-                                    <Link to={'/contributions/'+ contribution.id }>{contribution.title} </Link>
-                                )}
-                            </div>
-                            <div>
-                                <small className="leftmar">
-                                    {contribution.points} by
-                                    <Link to={'users/'+contribution.user_id}>
-                                        <User user_id={contribution.user_id}/>
-                                    </Link>
-                                    {contribution.created_at}
-                                </small>
-                            </div>
-                        </li>
-                    )}
+                    {
+                        contributions
+                    }
+
                 </ol>
             </div>
         );
+    }
+
+
+
+    deleteUpVotedContribution(data, i) {
+        let copyUpVoted = this.state.upVotedContributions.slice();
+        let copyContrib = this.state.contributions;
+        copyContrib[i] = data;
+        const index = copyUpVoted.indexOf(data);
+        if ( index > -1 ) {
+            copyUpVoted.splice(index,1);
+        }
+        this.setState({
+            upVotedContributions:copyUpVoted,
+            contributions:copyContrib
+        })
+    }
+
+    addUpVotedContribution( data , i) {
+        console.log(data);
+        if ( ! data.hasOwnProperty("code")) {
+            let copyUpVoted = this.state.upVotedContributions.slice();
+            copyUpVoted.push(data);
+            let copyContrib = this.state.contributions;
+            copyContrib[i] = data;
+            this.setState({
+                upVotedContributions: copyUpVoted,
+                contributions: copyContrib
+            })
+        }
     }
 }
 

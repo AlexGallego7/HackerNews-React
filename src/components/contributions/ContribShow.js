@@ -8,7 +8,8 @@ class ContribShow extends React.Component {
         this.state = {
             error: null,
             id: this.props.match.params.id,
-            contribution: []
+            contribution: [],
+            comments: []
         }
     }
 
@@ -29,6 +30,23 @@ class ContribShow extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+
+        let urlcomments = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" +  this.state.id + "/comments"
+
+        fetch(urlcomments)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    console.log(result)
+                    this.setState({
+                        comments: result
+
+                    })
+                })
+            .catch(error => {
+                console.log(error)
+            })
+
     }
 
     render() {
