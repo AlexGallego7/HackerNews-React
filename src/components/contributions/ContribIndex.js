@@ -109,7 +109,7 @@ class ContribIndex extends React.Component {
     render() {
         let contributions = this.state.contributions.map((e,i) => {
             return (
-                <li key={i}>
+                <li style={{marginBottom: '10px'}} key={i}>
                     <div className="url-link">
                         <small style={{marginRight: '6px'}}>
                             { this.checkIfLiked(e)?
@@ -136,7 +136,7 @@ class ContribIndex extends React.Component {
                             &nbsp;
                             created_at:
                             &nbsp;
-                            {e.created_at.substr(0,10) + e.created_at.substr(11,10) + ' |'}
+                            {e.created_at.substr(0,10) + ' ' + e.created_at.substr(11,10) + ' | '}
                             <Link to={'contributions/'+ e.id}>
                                 comments
                             </Link>

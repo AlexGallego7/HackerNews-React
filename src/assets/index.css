@@ -52,13 +52,13 @@ table, .content{
   margin-bottom: 0;
 }
 
-#esl{
+.esl{
   color: black;
   font-weight: bolder;
 }
 
-.marginleft15{
-  margin-left: 15px;
+.bottomMar{
+  margin-bottom: 10px;
 }
 
 .leftmar{
