@@ -112,8 +112,10 @@ class ContribIndex extends React.Component {
                 <li key={i}>
                     <div className="url-link">
                         <small style={{marginRight: '6px'}}>
-
-                                <a href="#" onClick={() => this.dislike(e.id, i,1)}>▲</a>
+                            { this.checkIfLiked(e)?
+                                (<a href="#" onClick={() => this.dislike(e.id, i, 1)}>▼</a>):
+                                (<a href="#" onClick={() => this.like(e.id, i, 1)}>▲</a>)
+                            }
 
 
                         </small>
@@ -191,6 +193,14 @@ class ContribIndex extends React.Component {
                 contributions: copyContrib
             })
         }
+    }
+
+    checkIfLiked(e) {
+        let copyUpvoted = this.state.upVotedContributions;
+        for (let i = 0; i < copyUpvoted.length; ++i ) {
+            if ( copyUpvoted[i].id ===  e.id) return true;
+        }
+        return false;
     }
 }
 
