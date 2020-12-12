@@ -2,6 +2,7 @@ import React  from 'react';
 import {Link} from "react-router-dom";
 import User from "../users/User";
 import CommentForm from "./CommentForm";
+import RenderTree from "../CommentsAndReplies/RenderTree";
 
 // HAY UN BUG EN RENDERTREE CUANDO SE LLAMA AL IDFATHER SI HAY UNA CONTRIBUCION CON ID 1 Y UN COMMENT CON ID 1 SE DAN LOS COMENTARIOS DE LA CONTRIBUCION 1 PARA EL COMMENT TAMBIEN
 
@@ -76,6 +77,9 @@ class CommentShow extends React.Component {
                     <form>
                         <CommentForm data={this.state} type='comment'/>
                     </form>
+                    <div style={{marginLeft: '15px', marginBottom: '15px'}}>
+                        <RenderTree idFather={this.state.id} type={"comment"}/>
+                    </div>
                 </div>
             </div>
         );

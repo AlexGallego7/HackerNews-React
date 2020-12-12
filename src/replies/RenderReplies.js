@@ -1,27 +1,27 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
-import RenderReplies from "../../replies/RenderReplies";
 
-class RenderTree extends React.Component {
+class RenderReplies extends React.Component {
 
     constructor(props) {
         super(props);
         console.log(this.props)
         this.state = {
             error: null,
-            type: this.props.type,
             idFather: this.props.idFather,
-            comments: [],
+            type: this.props.type,
+            replies: [],
             hasMoreReplies: false
         }
     }
 
     componentDidMount() {
-        let url = ""
-        if (this.state.type === 'contribution')
-            url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" +  this.state.idFather + "/comments"
-        else if (this.state.type === 'comment')
+
+        let url
+        if(this.state.type === "comment")
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" +  this.state.idFather + "/replies"
+        else
+            url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" +  this.state.idFather + "/replies"
 
         fetch(url)
             .then(response => response.json())
@@ -29,8 +29,7 @@ class RenderTree extends React.Component {
                 (result) => {
                     console.log(result)
                     this.setState({
-                        comments: result
-
+                        replies: result
                     })
                 })
             .catch(error => {
@@ -41,7 +40,7 @@ class RenderTree extends React.Component {
     }
 
     checkIfMoreReplies() {
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" +  this.state.idFather + "/replies"
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" +  this.state.idFather + "/replies"
         console.log(url)
         fetch(url)
             .then(response => response.json())
@@ -58,7 +57,7 @@ class RenderTree extends React.Component {
 
     render() {
         //en comptes de fer link en botto "Reply", aver si amb redirect a la path funcionaria.
-        let renderComments = this.state.comments.map((e,i) => {
+        let renderReplies = this.state.replies.map((e,i) => {
             return (
                 <div style={{marginBottom: '10px'}}>
                     <small>
@@ -67,12 +66,12 @@ class RenderTree extends React.Component {
                     <div className="pad-comment">
                         {e.content} <br />
                         <small>
-                            <Link to={'/comments/'+ e.id}>
+                            <Link to={'/replies/'+ e.id}>
                                 Reply
                             </Link>
                         </small>
                         <div>
-                            {this.state.hasMoreReplies ? <RenderReplies idFather={e.id} type="comment"/> : null }
+                            {this.state.hasMoreReplies ? <RenderReplies idFather={e.id} type="reply"/> : null }
                         </div>
                     </div>
                 </div>
@@ -80,9 +79,9 @@ class RenderTree extends React.Component {
             )
         })
         return (
-            renderComments
+            renderReplies
         )
     }
 }
 
-export default RenderTree;
+export default RenderReplies;
