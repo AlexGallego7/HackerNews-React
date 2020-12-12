@@ -8,6 +8,7 @@ import ContribForm from "./components/contributions/ContribForm";
 import ReplyNew from "./components/CommentsAndReplies/ReplyNew";
 import CommentsIndex from "./components/comments/CommentsIndex";
 import CommentShow from "./components/comments/CommentShow";
+import ReplyShow from "./components/replies/ReplyShow";
 
 
 const AppRouter = () => {
@@ -20,7 +21,7 @@ const AppRouter = () => {
             <Route exact path="/newest" component={ContribIndex} />
             <Route exact path="/ask" component={ContribIndex} />
             <Route exact path="/users/:id" component={UserShow} />
-            <Route exact path="/replies/:id" render={ () => <ReplyNew type={'reply'}/> } />
+            <Route exact path="/replies/:id" component={ReplyShow} />
             <Route exact path="/submit" component={ContribForm}/>
             <Route exact path="/contributions/users/:id" component={ContribIndex}/>
             <Route exact path="/comments/users/:id" component={CommentsIndex}/>

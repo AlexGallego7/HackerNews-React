@@ -1,10 +1,10 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import User from "../users/User";
-import CommentForm from "./CommentForm";
-import RenderReplies from "../replies/RenderReplies";
+import CommentForm from "../comments/CommentForm";
+import RenderReplies from "./RenderReplies";
 
-class CommentShow extends React.Component {
+class ReplyShow extends React.Component {
 
     constructor(props) {
         super(props);
@@ -12,14 +12,14 @@ class CommentShow extends React.Component {
         this.state = {
             error: null,
             id: this.props.match.params.id,
-            comment: [],
+            reply: [],
             replies: [],
         }
     }
 
     componentDidMount() {
 
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" +  this.state.id
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" +  this.state.id
         console.log(url);
 
         fetch(url)
@@ -28,14 +28,14 @@ class CommentShow extends React.Component {
                 (result) => {
                     console.log(result)
                     this.setState({
-                        comment: result,
+                        reply: result,
                     })
                 })
             .catch(error => {
                 console.log(error)
             })
 
-        url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" +  this.state.id + "/replies"
+        url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" +  this.state.id + "/replies"
 
         fetch(url)
             .then(response => response.json())
@@ -51,32 +51,32 @@ class CommentShow extends React.Component {
     }
 
     render() {
-        const comment = this.state.comment;
+        const reply = this.state.reply;
         return (
             <div className="content">
                 <div style={{marginTop: '15px', marginBottom: '20px'}} className="leftmar">
                     <div className="inline">
                         <small>▲&nbsp;&nbsp;</small>
-                        {comment.content}
+                        {reply.content}
                     </div>
                     <div className="leftmar">
                         <small>
-                            {comment.points} points by
+                            {reply.points} points by
                             &nbsp;
-                            <Link to={'users/' + comment.user_id}>
-                                <User user_id={comment.user_id}/>
+                            <Link to={'users/' + reply.user_id}>
+                                <User user_id={reply.user_id}/>
                             </Link>
                             &nbsp;
                             created_at:
                             &nbsp;
-                            {comment.created_at}
+                            {reply.created_at}
                         </small>
                     </div>
                     <form>
-                        <CommentForm data={this.state} type='comment'/>
+                        <CommentForm data={this.state} type='reply'/>
                     </form>
                     <div style={{marginLeft: '15px', marginBottom: '15px'}}>
-                        <RenderReplies idFather={this.state.id} type={"comment"}/>
+                        <RenderReplies idFather={this.state.id} type={"replies"}/>
                     </div>
                 </div>
             </div>
@@ -84,4 +84,4 @@ class CommentShow extends React.Component {
     }
 }
 
-export default CommentShow;
+export default ReplyShow;

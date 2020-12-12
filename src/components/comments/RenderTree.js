@@ -1,6 +1,6 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
-import RenderReplies from "../../replies/RenderReplies";
+import RenderReplies from "../replies/RenderReplies";
 
 class RenderTree extends React.Component {
 
@@ -67,7 +67,7 @@ class RenderTree extends React.Component {
                     <div className="pad-comment">
                         {e.content} <br />
                         <small>
-                            <Link to={'/comments/'+ e.id}>
+                            <Link to={(this.state.type === 'contribution' ? '/comments/' : '/replies/') + e.id}>
                                 Reply
                             </Link>
                         </small>

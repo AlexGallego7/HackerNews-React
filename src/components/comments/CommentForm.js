@@ -35,6 +35,9 @@ class CommentForm extends React.Component {
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + this.state.id + "/comments"
         else if(this.state.type === 'comment')
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + this.state.id + "/replies"
+        else
+            url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" + this.state.id
+
 
         const requestOptions = {
             method: 'POST',

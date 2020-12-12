@@ -24,13 +24,7 @@ const UserShowView = (props) => (
                 <Link to={'/contributions/users/' + props.user.id} className="wow">contributions</Link>
             </p>
             <p>
-                <Link to={'/threads/' + props.user.id} className="wow">comments</Link>
-            </p>
-            <p>
-                <Link to={'/upvoted/submissions'} className="wow">upvoted contributions</Link>
-            </p>
-            <p>
-                <Link to={'/upvoted/comments'} className="wow">upvoted comments</Link>
+                <Link to={'/comments/users/' + props.user.id} className="wow">comments</Link>
             </p>
         </div>
 

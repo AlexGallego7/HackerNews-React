@@ -1,7 +1,7 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import User from "../users/User";
-import RenderTree from "../CommentsAndReplies/RenderTree";
+import RenderTree from "../comments/RenderTree";
 import CommentForm from "../comments/CommentForm";
 
 // HAY UN BUG EN RENDERTREE CUANDO SE LLAMA AL IDFATHER SI HAY UNA CONTRIBUCION CON ID 1 Y UN COMMENT CON ID 1 SE DAN LOS COMENTARIOS DE LA CONTRIBUCION 1 PARA EL COMMENT TAMBIEN

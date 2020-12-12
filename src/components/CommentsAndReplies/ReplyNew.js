@@ -1,7 +1,7 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import User from "../users/User";
-import RenderTree from "./RenderTree";
+import RenderTree from "../comments/RenderTree";
 
 class ReplyNew extends React.Component {
 
