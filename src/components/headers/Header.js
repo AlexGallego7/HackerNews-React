@@ -8,6 +8,7 @@ const Header = () => (
             <Link to={'/contributions'}><h1> Hacker News | </h1></Link>
             <Link to={'/newest'}> new | </Link>
             <Link to={'/ask'}>ask | </Link>
+            <Link to={'/comments/users/2'}>threads | </Link>
             <Link to={'/submit'}>submit</Link>
         </div>
     </div>
