@@ -9,27 +9,62 @@ class ContribIndex extends React.Component {
         console.log(props)
         this.state = {
             error: null,
-            url: "https://asw-hackernews-kaai12.herokuapp.com/api" + ((this.props.location.pathname === "/") ? "/contributions" : this.props.location.pathname),
             contributions: [],
             upVotedContributions: [],
+            user_id: this.props.match.params.id
         }
         console.log("URL :::" + this.state.url)
+        this.updateUpvotedContributions = this.updateUpvotedContributions.bind(this)
     }
 
     componentDidMount() {
+        console.log(this.state.user_id)
+        let url, type;
 
-        fetch(this.state.url)
-            .then(response => response.json())
-            .then(
-                (result) => {
-                    console.log(result)
-                    this.setState({
-                        contributions: result
+        console.log(this.props.location.pathname)
+        if (this.props.location.pathname === "/upvoted/contributions") {
+            url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/upvoted"
+            type = 0
+        } else url = "https://asw-hackernews-kaai12.herokuapp.com/api" + ((this.props.location.pathname === "/") ? "/contributions" : this.props.location.pathname)
+
+        if (type === 0) {
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                },
+                body: null
+            };
+
+            fetch(url,requestOptions)
+                .then(response => response.json())
+                .then(
+                    (result) => {
+                        console.log(result)
+                        this.setState({
+                            contributions: result
+                        })
                     })
+                .catch(error => {
+                    console.log(error)
                 })
-            .catch(error => {
-                console.log(error)
-            })
+        } else {
+            fetch(url)
+                .then(response => response.json())
+                .then(
+                    (result) => {
+                        console.log(result)
+                        this.setState({
+                            contributions: result
+                        })
+                    })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+
+
 
         const requestOptions = {
             method: 'GET',
@@ -90,7 +125,36 @@ class ContribIndex extends React.Component {
         fetch(url, requestOptions)
             .then(() => {
             })
-            .then(() => this.deleteUpVotedContribution(i))
+            .then(() => {
+                this.deleteUpVotedContribution(i)
+                if (this.props.location.pathname === "/upvoted/contributions") this.updateUpvotedContributions()
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    updateUpvotedContributions() {
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/upvoted"
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+            },
+            body: null
+        };
+
+        fetch(url,requestOptions)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    console.log(":)")
+                    console.log(result)
+                    this.setState({
+                        contributions: result
+                    })
+                })
             .catch(error => {
                 console.log(error)
             })
