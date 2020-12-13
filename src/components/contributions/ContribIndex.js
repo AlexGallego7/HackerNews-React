@@ -17,8 +17,8 @@ class ContribIndex extends React.Component {
     }
 
     componentDidMount() {
-
-        fetch(this.state.url)
+        console.log(this.state.url)
+        /*fetch(this.state.url)
             .then(response => response.json())
             .then(
                 (result) => {
@@ -52,7 +52,7 @@ class ContribIndex extends React.Component {
                 })
             .catch(error => {
                 console.log(error)
-            })
+            })*/
     }
 
     like(id, i) {

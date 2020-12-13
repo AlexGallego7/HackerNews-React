@@ -15,19 +15,54 @@ class CommentsIndex extends React.Component {
 
     componentDidMount() {
 
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/users/" + this.state.user_id
+        let url
+        let type
+        if (this.state.user_id === undefined) {
+            url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/upvoted"
+            type = 0
+        }
+        else {
+            url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/users/" + this.state.user_id
+            type = 1
+        }
+        console.log(url)
 
-        fetch(url)
-            .then(response => response.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        comments: result
+        if (type === 1) {
+            fetch(url)
+                .then(response => response.json())
+                .then(
+                    (result) => {
+                        this.setState({
+                            comments: result
+                        })
                     })
+                .catch(error => {
+                    console.log(error)
                 })
-            .catch(error => {
-                console.log(error)
-            })
+        } else {
+
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                },
+                body: null
+            };
+
+            fetch(url,requestOptions)
+                .then(response => response.json())
+                .then(
+                    (result) => {
+                        console.log(result)
+                        this.setState({
+                            comments: result
+                        })
+                    })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
 
         const requestOptions = {
             method: 'GET',

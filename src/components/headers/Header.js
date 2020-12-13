@@ -10,6 +10,7 @@ const Header = () => (
             <Link to={'/ask'}>ask | </Link>
             <Link to={'/comments/users/2'}>threads | </Link>
             <Link to={'/submit'}>submit</Link>
+            <Link to={'/myProfile'}>MyProfile(500) | </Link>
         </div>
     </div>
 )
