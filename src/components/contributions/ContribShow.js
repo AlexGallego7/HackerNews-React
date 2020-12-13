@@ -2,9 +2,6 @@ import React  from 'react';
 import {Link} from "react-router-dom";
 import User from "../users/User";
 import RenderTree from "../comments/RenderTree";
-import CommentForm from "../comments/CommentForm";
-
-// HAY UN BUG EN RENDERTREE CUANDO SE LLAMA AL IDFATHER SI HAY UNA CONTRIBUCION CON ID 1 Y UN COMMENT CON ID 1 SE DAN LOS COMENTARIOS DE LA CONTRIBUCION 1 PARA EL COMMENT TAMBIEN
 
 class ContribShow extends React.Component {
 
@@ -15,19 +12,27 @@ class ContribShow extends React.Component {
             id: this.props.match.params.id,
             contribution: [],
             comments: [],
+            content: ""
         }
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount() {
 
+        this.fetchContribution()
+        this.fetchComments()
+
+    }
+
+    fetchContribution() {
         let url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" +  this.state.id
-        console.log(url);
 
         fetch(url)
             .then(response => response.json())
             .then(
                 (result) => {
-                    console.log(result)
                     this.setState({
                         contribution: result,
                     })
@@ -35,8 +40,11 @@ class ContribShow extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+    }
 
-        url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" +  this.state.id + "/comments"
+    fetchComments() {
+
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" +  this.state.id + "/comments"
 
         fetch(url)
             .then(response => response.json())
@@ -48,6 +56,42 @@ class ContribShow extends React.Component {
                 })
             .catch(error => {
                 console.log(error)
+            })
+    }
+
+    handleChange(event) {
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    handleSubmit(event)  {
+        event.preventDefault()
+        this.doPost()
+    }
+
+    doPost() {
+
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + this.state.id + "/comments"
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+            },
+            body: JSON.stringify(this.state)
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                let new_comments = this.state.comments.concat(data)
+                this.setState({
+                    comments: new_comments
+                })
+                console.log(data)
             })
     }
 
@@ -70,23 +114,28 @@ class ContribShow extends React.Component {
                     <div className="leftmar">
                         <small>
                             {contribution.points} points by
-                            &nbsp;
-                            <Link to={'users/' + contribution.user_id}>
+                            <Link to={'/users/' + contribution.user_id}>
                                 <User user_id={contribution.user_id}/>
                             </Link>
-                            &nbsp;
-                            created_at:
-                            &nbsp;
-                            {contribution.created_at}
+                            created_at: {contribution.created_at}
                         </small>
                         <p style={{marginTop: '7px'}}>{contribution.text}</p>
                     </div>
-                    <form>
-                        <CommentForm data={this.state} type='contribution'/>
-                    </form>
+                    <div className="content">
+                        <form>
+                            <div className="leftmar">
+                        <textarea className="bottomMar" rows="6" cols="60" name="content" value={this.state.content}
+                                  onChange={this.handleChange}/>
+                            </div>
+                            <div style={{marginLeft: '15px'}} className="actions">
+                                <input className="bottomMar" type="submit" value="add comment"
+                                       onClick={this.handleSubmit}/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div style={{marginLeft: '15px', marginBottom: '15px'}}>
-                    <RenderTree idFather={this.state.id} type={"contribution"}/>
+                    <RenderTree idFather={this.state.id} type={"contribution"} comments={this.state.comments}/>
                 </div>
             </div>
         );

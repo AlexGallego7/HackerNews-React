@@ -1,7 +1,6 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import User from "../users/User";
-import CommentForm from "./CommentForm";
 import RenderReplies from "../replies/RenderReplies";
 
 class CommentShow extends React.Component {
@@ -14,13 +13,22 @@ class CommentShow extends React.Component {
             id: this.props.match.params.id,
             comment: [],
             replies: [],
+            content: ""
         }
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount() {
 
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" +  this.state.id
-        console.log(url);
+        this.fetchComment()
+        this.fetchReplies()
+    }
+
+    fetchComment() {
+
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" +  this.state.id
 
         fetch(url)
             .then(response => response.json())
@@ -34,8 +42,10 @@ class CommentShow extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+    }
 
-        url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" +  this.state.id + "/replies"
+    fetchReplies() {
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" +  this.state.id + "/replies"
 
         fetch(url)
             .then(response => response.json())
@@ -47,6 +57,42 @@ class CommentShow extends React.Component {
                 })
             .catch(error => {
                 console.log(error)
+            })
+    }
+
+    handleChange(event) {
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    handleSubmit(event)  {
+        event.preventDefault()
+        this.doPost()
+    }
+
+    doPost() {
+
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + this.state.id + "/replies"
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+            },
+            body: JSON.stringify(this.state)
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                let new_replies = this.state.replies.concat(data)
+                this.setState({
+                    comments: new_replies
+                })
+                console.log(data)
             })
     }
 
@@ -72,11 +118,20 @@ class CommentShow extends React.Component {
                             {comment.created_at}
                         </small>
                     </div>
-                    <form>
-                        <CommentForm data={this.state} type='comment'/>
-                    </form>
+                    <div className="content">
+                        <form>
+                            <div className="leftmar">
+                        <textarea className="bottomMar" rows="6" cols="60" name="content" value={this.state.content}
+                                  onChange={this.handleChange}/>
+                            </div>
+                            <div style={{marginLeft: '15px'}} className="actions">
+                                <input className="bottomMar" type="submit" value="add comment"
+                                       onClick={this.handleSubmit}/>
+                            </div>
+                        </form>
+                    </div>
                     <div style={{marginLeft: '15px', marginBottom: '15px'}}>
-                        <RenderReplies idFather={this.state.id} type={"comment"}/>
+                        <RenderReplies idFather={this.state.id} type={"comment"} replies={this.state.replies}/>
                     </div>
                 </div>
             </div>

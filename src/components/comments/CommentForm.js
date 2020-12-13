@@ -50,7 +50,12 @@ class CommentForm extends React.Component {
 
         fetch(url, requestOptions)
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                console.log(data)
+                this.setState({
+                    id: data
+                })
+            })
     }
 
     render() {

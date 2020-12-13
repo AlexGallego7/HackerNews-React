@@ -1,7 +1,6 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import User from "../users/User";
-import CommentForm from "../comments/CommentForm";
 import RenderReplies from "./RenderReplies";
 
 class ReplyShow extends React.Component {
@@ -15,12 +14,18 @@ class ReplyShow extends React.Component {
             reply: [],
             replies: [],
         }
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount() {
 
+        this.fetchReply()
+        this.fetchReplies()
+    }
+
+    fetchReply() {
         let url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" +  this.state.id
-        console.log(url);
 
         fetch(url)
             .then(response => response.json())
@@ -34,8 +39,10 @@ class ReplyShow extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+    }
 
-        url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" +  this.state.id + "/replies"
+    fetchReplies() {
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" +  this.state.id + "/replies"
 
         fetch(url)
             .then(response => response.json())
@@ -47,6 +54,42 @@ class ReplyShow extends React.Component {
                 })
             .catch(error => {
                 console.log(error)
+            })
+    }
+
+    handleChange(event) {
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    handleSubmit(event)  {
+        event.preventDefault()
+        this.doPost()
+    }
+
+    doPost() {
+
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + this.state.id + "/replies"
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+            },
+            body: JSON.stringify(this.state)
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                let new_replies = this.state.replies.concat(data)
+                this.setState({
+                    replies: new_replies
+                })
+                console.log(data)
             })
     }
 
@@ -72,11 +115,20 @@ class ReplyShow extends React.Component {
                             {reply.created_at}
                         </small>
                     </div>
-                    <form>
-                        <CommentForm data={this.state} type='reply'/>
-                    </form>
+                    <div className="content">
+                        <form>
+                            <div className="leftmar">
+                        <textarea className="bottomMar" rows="6" cols="60" name="content" value={this.state.content}
+                                  onChange={this.handleChange}/>
+                            </div>
+                            <div style={{marginLeft: '15px'}} className="actions">
+                                <input className="bottomMar" type="submit" value="add comment"
+                                       onClick={this.handleSubmit}/>
+                            </div>
+                        </form>
+                    </div>
                     <div style={{marginLeft: '15px', marginBottom: '15px'}}>
-                        <RenderReplies idFather={this.state.id} type={"replies"}/>
+                        <RenderReplies idFather={this.state.id} type={"replies"} replies={this.state.replies}/>
                     </div>
                 </div>
             </div>

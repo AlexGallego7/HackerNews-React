@@ -152,7 +152,6 @@ class ContribIndex extends React.Component {
                                 (<a href="#" onClick={() => this.like(e.id, i, 1)}>▲</a>)
                             }
 
-
                         </small>
                         {e.url ? (
                             <a href={e.url}>{e.title}
@@ -165,14 +164,14 @@ class ContribIndex extends React.Component {
                     <div>
                         <small className="leftmar">
                             {e.points} by
-                            <Link to={'users/' + e.user_id}>
+                            <Link to={'/users/' + e.user_id}>
                                 <User user_id={e.user_id}/>
                             </Link>
                             &nbsp;
                             created_at:
                             &nbsp;
                             {e.created_at.substr(0, 10) + ' ' + e.created_at.substr(11, 10) + ' | '}
-                            <Link to={'contributions/' + e.id}>
+                            <Link to={'/contributions/' + e.id}>
                                 comments
                             </Link>
                         </small>

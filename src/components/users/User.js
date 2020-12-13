@@ -11,6 +11,12 @@ class User extends React.Component {
         }
     }
 
+    componentWillReceiveProps(props, nextContext) {
+        this.setState({
+            id: this.props.user_id
+        })
+    }
+
     componentDidMount() {
 
         let url = "https://asw-hackernews-kaai12.herokuapp.com/api/users/" +  this.state.id

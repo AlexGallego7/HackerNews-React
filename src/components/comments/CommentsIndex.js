@@ -153,14 +153,14 @@ class CommentsIndex extends React.Component {
                     <div>
                         <small className="leftmar">
                             {e.points} by
-                            <Link to={'users/' + e.user_id}>
+                            <Link to={'/users/' + e.user_id}>
                                 <User user_id={e.user_id}/>
                             </Link>
                             &nbsp;
                             created_at:
                             &nbsp;
                             {e.created_at.substr(0, 10) + ' ' + e.created_at.substr(11, 10) + ' | '}
-                            <Link to={'comments/' + e.id}>
+                            <Link to={'/comments/' + e.id}>
                                 replies
                             </Link>
                         </small>
