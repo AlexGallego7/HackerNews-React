@@ -24,12 +24,13 @@ const AppRouter = () => {
             <Route exact path="/users/:id" component={UserShow} />
             <Route exact path="/replies/:id" component={ReplyShow} />
             <Route exact path="/submit" component={ContribForm}/>
+            <Route exact path="/upvoted/contributions" component={ContribIndex}/>
+            <Route exact path="/upvoted/comments" component={CommentsIndex}/>
             <Route exact path="/contributions/users/:id" component={ContribIndex}/>
             <Route exact path="/comments/users/:id" component={CommentsIndex}/>
             <Route exact path="/comments/:id" component={CommentShow}/>
             <Route exact path="/myProfile" component={MyProfile}/>
-            <Route exact path="/contributions/upvoted" component={ContribIndex}/>
-            <Route exact path="/upvoted/comments/" component={CommentsIndex}/>
+
         </Router>
     );
 };
