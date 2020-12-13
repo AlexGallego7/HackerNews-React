@@ -11,6 +11,7 @@ class CommentsIndex extends React.Component {
             comments: [],
             upvotedComments: []
         }
+        this.updateUpvotedComments = this.updateUpvotedComments.bind(this)
     }
 
     componentDidMount() {
@@ -40,7 +41,6 @@ class CommentsIndex extends React.Component {
                     console.log(error)
                 })
         } else {
-
             const requestOptions = {
                 method: 'GET',
                 headers: {
@@ -122,7 +122,35 @@ class CommentsIndex extends React.Component {
         fetch(url, requestOptions)
             .then(() => {
             })
-            .then(() => this.deleteUpVotedComment(i))
+            .then(() => {
+                this.deleteUpVotedComment(i)
+                if (this.props.location.pathname === "/upvoted/comments") this.updateUpvotedComments()
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    updateUpvotedComments() {
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/upvoted"
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+            },
+            body: null
+        };
+
+        fetch(url,requestOptions)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    console.log(result)
+                    this.setState({
+                        comments: result
+                    })
+                })
             .catch(error => {
                 console.log(error)
             })

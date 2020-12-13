@@ -14,6 +14,7 @@ class ContribIndex extends React.Component {
             user_id: this.props.match.params.id
         }
         console.log("URL :::" + this.state.url)
+        this.updateUpvotedContributions = this.updateUpvotedContributions.bind(this)
     }
 
     componentDidMount() {
@@ -124,7 +125,36 @@ class ContribIndex extends React.Component {
         fetch(url, requestOptions)
             .then(() => {
             })
-            .then(() => this.deleteUpVotedContribution(i))
+            .then(() => {
+                this.deleteUpVotedContribution(i)
+                if (this.props.location.pathname === "/upvoted/contributions") this.updateUpvotedContributions()
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    updateUpvotedContributions() {
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/upvoted"
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+            },
+            body: null
+        };
+
+        fetch(url,requestOptions)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    console.log(":)")
+                    console.log(result)
+                    this.setState({
+                        contributions: result
+                    })
+                })
             .catch(error => {
                 console.log(error)
             })
