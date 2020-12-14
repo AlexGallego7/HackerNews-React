@@ -1,6 +1,5 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
-import User from "../users/User";
 import RenderReplies from "./RenderReplies";
 
 class ReplyShow extends React.Component {
@@ -78,7 +77,7 @@ class ReplyShow extends React.Component {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                'X-API-KEY': localStorage.getItem('token')
             },
             body: JSON.stringify(this.state)
         };

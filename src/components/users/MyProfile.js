@@ -19,7 +19,7 @@ class MyProfile extends React.Component {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                'X-API-KEY': localStorage.getItem('token')
             }
         };
 
@@ -46,7 +46,7 @@ class MyProfile extends React.Component {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                'X-API-KEY': localStorage.getItem('token')
             },
             body: JSON.stringify(k)
         };

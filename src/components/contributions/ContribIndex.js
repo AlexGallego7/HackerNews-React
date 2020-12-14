@@ -6,22 +6,18 @@ class ContribIndex extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             error: null,
             contributions: [],
             upVotedContributions: [],
             user_id: this.props.match.params.id
         }
-        console.log("URL :::" + this.state.url)
         this.updateUpvotedContributions = this.updateUpvotedContributions.bind(this)
     }
 
     componentDidMount() {
-        console.log(this.state.user_id)
         let url, type;
 
-        console.log(this.props.location.pathname)
         if (this.props.location.pathname === "/upvoted/contributions") {
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/upvoted"
             type = 0
@@ -32,7 +28,7 @@ class ContribIndex extends React.Component {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                    'X-API-KEY': localStorage.getItem('token')
                 },
                 body: null
             };
@@ -41,7 +37,6 @@ class ContribIndex extends React.Component {
                 .then(response => response.json())
                 .then(
                     (result) => {
-                        console.log(result)
                         this.setState({
                             contributions: result
                         })
@@ -54,7 +49,6 @@ class ContribIndex extends React.Component {
                 .then(response => response.json())
                 .then(
                     (result) => {
-                        console.log(result)
                         this.setState({
                             contributions: result
                         })
@@ -70,7 +64,7 @@ class ContribIndex extends React.Component {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                'X-API-KEY': localStorage.getItem('token')
             },
             body: null
         };
@@ -80,7 +74,6 @@ class ContribIndex extends React.Component {
             .then(response => response.json())
             .then(
                 (result) => {
-                    console.log(result)
                     this.setState({
                         upVotedContributions: result
                     })
@@ -96,7 +89,7 @@ class ContribIndex extends React.Component {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                'X-API-KEY': localStorage.getItem('token')
             },
             body: null
         };
@@ -117,7 +110,7 @@ class ContribIndex extends React.Component {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                'X-API-KEY': localStorage.getItem('token')
             },
             body: null
         };
@@ -140,7 +133,7 @@ class ContribIndex extends React.Component {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                'X-API-KEY': localStorage.getItem('token')
             },
             body: null
         };
@@ -149,8 +142,6 @@ class ContribIndex extends React.Component {
             .then(response => response.json())
             .then(
                 (result) => {
-                    console.log(":)")
-                    console.log(result)
                     this.setState({
                         contributions: result
                     })

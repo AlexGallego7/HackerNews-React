@@ -43,7 +43,7 @@ class CommentForm extends React.Component {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                'X-API-KEY': localStorage.getItem('token')
             },
             body: JSON.stringify(this.state)
         };

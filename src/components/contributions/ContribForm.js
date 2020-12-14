@@ -22,6 +22,7 @@ class ContribForm extends React.Component {
     }
 
     handleSubmit(event)  {
+        console.log(this.state)
         event.preventDefault()
         this.doPost()
     }
@@ -33,9 +34,9 @@ class ContribForm extends React.Component {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': '-ExnIm9fIjM-Za8sfP7RYg'
+                'X-API-KEY': localStorage.getItem('token')
             },
-            body: JSON.stringify(this.state.content)
+            body: JSON.stringify(this.state)
         };
 
         fetch(url, requestOptions)
