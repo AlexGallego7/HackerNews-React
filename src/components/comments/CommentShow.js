@@ -1,6 +1,5 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
-import User from "../users/User";
 import RenderReplies from "../replies/RenderReplies";
 
 class CommentShow extends React.Component {
@@ -110,7 +109,7 @@ class CommentShow extends React.Component {
                             {comment.points} points by
                             &nbsp;
                             <Link to={'/users/' + comment.user_id}>
-                                {this.comment.user_id}
+                                {comment.user_id}
                             </Link>
                             created at:
                             &nbsp;

@@ -5,6 +5,7 @@ class ContribForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            error: "",
             title: "",
             url: "",
             text: ""
@@ -22,9 +23,9 @@ class ContribForm extends React.Component {
     }
 
     handleSubmit(event)  {
-        console.log(this.state)
         event.preventDefault()
         this.doPost()
+
     }
 
     doPost() {
@@ -41,31 +42,44 @@ class ContribForm extends React.Component {
 
         fetch(url, requestOptions)
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                console.log(data)
+                if(!data.status)
+                    this.props.history.push('/contributions/' + data.id)
+                else
+                    this.setState({
+                        error: data.message
+                    })
+            })
+            .catch(error => console.log(error))
+
     }
 
     render() {
         return (
             <div className="content">
+                <div style={{color: "red"}}>
+                    {this.state.error}
+                </div>
                 <form>
                     <div className="field" style={{marginBottom: '15px', marginTop: '15px'}}>
                         <label>
                             Title:
-                            <input type="text" name="title" value={this.state.title} onChange={
+                            <input id="textfield" type="text" name="title" value={this.state.title} onChange={
                                 this.handleChange} />
                         </label>
                     </div>
                     <div className="field" style={{marginBottom: '15px'}}>
                         <label>
                             URL:
-                            <input type="text" name="url" value={this.state.url} onChange={
+                            <input id="textfield" type="text" name="url" value={this.state.url} onChange={
                                 this.handleChange} />
                         </label>
                     </div>
                     <div className="field" style={{marginBottom: '15px'}}>
                         <label>
                             Text:
-                            <input type="text" name="text" value={this.state.text} onChange={
+                            <textarea name="text" className="bottomMar" rows="6" cols="60" value={this.state.text} onChange={
                                 this.handleChange} />
                         </label>
                     </div>
@@ -73,6 +87,7 @@ class ContribForm extends React.Component {
                         <input type="submit" value="Submit" onClick={this.handleSubmit}/>
                     </div>
                 </form>
+
             </div>
         )
     }

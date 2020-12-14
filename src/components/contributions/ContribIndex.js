@@ -1,6 +1,8 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import User from "../users/User";
+import {convertTime} from "../../utils";
+
 
 class ContribIndex extends React.Component {
 
@@ -16,6 +18,12 @@ class ContribIndex extends React.Component {
     }
 
     componentDidMount() {
+
+        this.fetchContributions()
+        this.fetchUpvoted()
+    }
+
+    fetchContributions() {
         let url, type;
 
         if (this.props.location.pathname === "/upvoted/contributions") {
@@ -57,8 +65,9 @@ class ContribIndex extends React.Component {
                     console.log(error)
                 })
         }
+    }
 
-
+    fetchUpvoted() {
 
         const requestOptions = {
             method: 'GET',
@@ -77,6 +86,7 @@ class ContribIndex extends React.Component {
                     this.setState({
                         upVotedContributions: result
                     })
+                    this.componentDidMount()
                 })
             .catch(error => {
                 console.log(error)
@@ -162,7 +172,6 @@ class ContribIndex extends React.Component {
                 break;
             }
         }
-        console.log(index)
         if (index > -1) {
             copyUpVoted.splice(index, 1);
             copyContrib[i].points -= 1;

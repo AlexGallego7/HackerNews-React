@@ -7,6 +7,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#textfield {
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+  width: 25%;
+  overflow-y:auto;/*resets IE*/
+  overflow-x:hidden;/*resets IE*/
+}
+
+textarea {
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+  width:50%;
+  overflow-y:auto;/*resets IE*/
+  overflow-x:hidden;/*resets IE*/
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

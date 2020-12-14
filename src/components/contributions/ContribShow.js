@@ -1,6 +1,5 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
-import User from "../users/User";
 import RenderTree from "../comments/RenderTree";
 
 class ContribShow extends React.Component {
@@ -126,7 +125,7 @@ class ContribShow extends React.Component {
                     <div className="content">
                         <form>
                             <div className="leftmar">
-                        <textarea className="bottomMar" rows="6" cols="60" name="content" value={this.state.content}
+                                <textarea className="bottomMar" rows="6" cols="60" name="content" value={this.state.content}
                                   onChange={this.handleChange}/>
                             </div>
                             <div style={{marginLeft: '15px'}} className="actions">

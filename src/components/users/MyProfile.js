@@ -87,22 +87,22 @@ class MyProfile extends React.Component {
 
                     <p>
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
-                        <Link class="wow" to={'/contributions/users/' + user.id}>submissions</Link>
+                        <Link className="wow" to={'/contributions/users/' + user.id}>submissions</Link>
                     </p>
 
                     <p>
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
-                        <Link class="wow" to={'/comments/users/' + user.id}>comments</Link>
+                        <Link className="wow" to={'/comments/users/' + user.id}>comments</Link>
                     </p>
 
                     <p>
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
-                        <Link class="wow" to={'/upvoted/contributions'}>upvoted submissions</Link>
+                        <Link className="wow" to={'/upvoted/contributions'}>upvoted submissions</Link>
                     </p>
 
                     <p>
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
-                        <Link class="wow" to={'/upvoted/comments'}>upvoted comments</Link>
+                        <Link className="wow" to={'/upvoted/comments'}>upvoted comments</Link>
                     </p>
 
                     <br/>
