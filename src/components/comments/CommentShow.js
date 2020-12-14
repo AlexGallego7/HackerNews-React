@@ -90,7 +90,7 @@ class CommentShow extends React.Component {
             .then(data => {
                 let new_replies = this.state.replies.concat(data)
                 this.setState({
-                    comments: new_replies
+                    replies: new_replies
                 })
                 console.log(data)
             })
@@ -109,11 +109,10 @@ class CommentShow extends React.Component {
                         <small>
                             {comment.points} points by
                             &nbsp;
-                            <Link to={'users/' + comment.user_id}>
-                                <User user_id={comment.user_id}/>
+                            <Link to={'/users/' + comment.user_id}>
+                                {this.comment.user_id}
                             </Link>
-                            &nbsp;
-                            created_at:
+                            created at:
                             &nbsp;
                             {comment.created_at}
                         </small>

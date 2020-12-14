@@ -18,6 +18,20 @@ class RenderTree extends React.Component {
         }
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log(nextProps)
+        if (JSON.stringify(nextProps.comments) !== JSON.stringify(prevState.comments)){
+            if(nextProps.comments)
+                return({
+                    comments: nextProps.comments
+                })
+            else
+                return []
+        }
+        return null;
+    }
+
+/*
     componentWillReceiveProps(props) {
         console.log(props)
         this.setState({
@@ -25,7 +39,7 @@ class RenderTree extends React.Component {
             comments: props.comments
         })
     }
-
+*/
 
     componentDidMount() {
         let url = ""
@@ -44,7 +58,6 @@ class RenderTree extends React.Component {
                 console.log(error)
             })
 
-        this.checkIfMoreReplies()
     }
 
     like(id, i) {
@@ -130,21 +143,7 @@ class RenderTree extends React.Component {
         return false;
     }
 
-    checkIfMoreReplies() {
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" +  this.state.idFather + "/replies"
-        console.log(url)
-        fetch(url)
-            .then(response => response.json())
-            .then(
-                (result) => {
-                    console.log(result)
-                    this.setState({
-                        hasMoreReplies: result.length !== 0
-                    })
-                }
-            )
-        console.log("REPLY WITH ID: " + this.state.idFather + " REPLIES: " + this.state.hasMoreReplies)
-    }
+
 
     render() {
         //en comptes de fer link en botto "Reply", aver si amb redirect a la path funcionaria.
@@ -172,7 +171,7 @@ class RenderTree extends React.Component {
                             </Link>
                         </small>
                         <div>
-                            {this.state.hasMoreReplies ? <RenderReplies idFather={e.id} type="comment" replies={this.state.replies}/> : null }
+                            <RenderReplies idFather={e.id} type="comment" replies={this.state.replies}/>
                         </div>
                     </div>
                 </div>

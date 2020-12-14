@@ -23,8 +23,6 @@ class MyProfile extends React.Component {
             }
         };
 
-        console.log("dkjashdkjashdkaljsh")
-
         fetch(this.state.url,requestOptions)
             .then(response => response.json())
             .then(
@@ -109,7 +107,7 @@ class MyProfile extends React.Component {
 
                     <br/>
                     <div  className="actions">
-                        <input className="bottomMar" type="submit" value="add comment" onClick={this.handleSubmit}/>
+                        <input className="bottomMar" type="submit" value="change about" onClick={this.handleSubmit}/>
                     </div>
 
                 </div>

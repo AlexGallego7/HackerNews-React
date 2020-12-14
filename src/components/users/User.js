@@ -11,12 +11,6 @@ class User extends React.Component {
         }
     }
 
-    componentWillReceiveProps(props, nextContext) {
-        this.setState({
-            id: this.props.user_id
-        })
-    }
-
     componentDidMount() {
 
         let url = "https://asw-hackernews-kaai12.herokuapp.com/api/users/" +  this.state.id
@@ -35,10 +29,9 @@ class User extends React.Component {
     }
 
     render() {
-        const username = this.state.username
         return (
             <span>
-                &nbsp;{username}
+                &nbsp;{this.state.username}&nbsp;
             </span>
         );
     }

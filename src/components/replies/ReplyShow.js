@@ -71,7 +71,8 @@ class ReplyShow extends React.Component {
 
     doPost() {
 
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + this.state.id + "/replies"
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" + this.state.id
+        console.log(url)
 
         const requestOptions = {
             method: 'POST',
@@ -106,11 +107,11 @@ class ReplyShow extends React.Component {
                         <small>
                             {reply.points} points by
                             &nbsp;
-                            <Link to={'users/' + reply.user_id}>
-                                <User user_id={reply.user_id}/>
+                            <Link to={'/users/' + reply.user_id}>
+                                {reply.user_id}
                             </Link>
                             &nbsp;
-                            created_at:
+                            created at:
                             &nbsp;
                             {reply.created_at}
                         </small>

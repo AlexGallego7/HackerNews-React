@@ -11,12 +11,10 @@ class RenderReplies extends React.Component {
             type: this.props.type,
             replies: [],
             upVotedReplies: [],
-            hasMoreReplies: []
         }
     }
-/*
+
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log(nextProps)
         if (JSON.stringify(nextProps.replies) !== JSON.stringify(prevState.replies)){
             if(nextProps.replies)
                 return({
@@ -27,23 +25,20 @@ class RenderReplies extends React.Component {
         }
         return null;
     }
-*/
 
+/*
     componentWillReceiveProps(props) {
-        console.log(props)
         if(props.replies) {
             this.setState({
                 ...this.state,
                 replies: props.replies
             })
-        } else
-            this.componentDidMount()
+        }
     }
-
+*/
     componentDidMount() {
 
         this.fetchCommentOrReply()
-        this.fetchReplies()
     }
 
     fetchCommentOrReply() {
@@ -66,20 +61,6 @@ class RenderReplies extends React.Component {
                 console.log(error)
             })
     }
-
-    fetchReplies() {
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" +  this.state.idFather + "/replies"
-        fetch(url)
-            .then(response => response.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        hasMoreReplies: result
-                    })
-                }
-            )
-    }
-
 
     like(id, i) {
         const url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" + id + "/likes";
@@ -187,7 +168,7 @@ class RenderReplies extends React.Component {
                             </Link>
                         </small>
                         <div>
-                            {this.state.hasMoreReplies.length !== 0 ? <RenderReplies idFather={e.id} type="reply"/> : null }
+                            <RenderReplies idFather={e.id} type="reply"/>
                         </div>
                     </div>
                 </div>

@@ -114,10 +114,12 @@ class ContribShow extends React.Component {
                     <div className="leftmar">
                         <small>
                             {contribution.points} points by
+                            &nbsp;
                             <Link to={'/users/' + contribution.user_id}>
-                                <User user_id={contribution.user_id}/>
+                                {contribution.user_id}
                             </Link>
-                            created_at: {contribution.created_at}
+                            &nbsp;
+                            created at: {contribution.created_at}
                         </small>
                         <p style={{marginTop: '7px'}}>{contribution.text}</p>
                     </div>
