@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './assets/index.css';
 import reportWebVitals from './reportWebVitals';
-import Contribution from "./Contributions/Contribution";
-import Header from "./components/Header";
+import AppRouter from "./AppRouter";
 
 ReactDOM.render(
-  <React.StrictMode>
-      <Header/>
-      <Contribution />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <AppRouter />,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
