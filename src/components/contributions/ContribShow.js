@@ -12,7 +12,8 @@ class ContribShow extends React.Component {
             id: this.props.match.params.id,
             contribution: [],
             comments: [],
-            content: ""
+            content: "",
+            upVotedContributions: []
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -35,6 +36,28 @@ class ContribShow extends React.Component {
                 (result) => {
                     this.setState({
                         contribution: result,
+                    })
+                })
+            .catch(error => {
+                console.log(error)
+            })
+
+        let urlUpVoted = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/upvoted"
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(urlUpVoted,requestOptions)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        upVotedContributions : result
                     })
                 })
             .catch(error => {
@@ -94,6 +117,62 @@ class ContribShow extends React.Component {
                 console.log(data)
             })
     }
+    like(id) {
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes";
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                this.componentDidMount()
+
+            }).catch(error => {
+            console.log(error)
+        })
+
+    }
+    dislike(id) {
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes"
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(() => {
+            })
+            .then(() => {
+                this.componentDidMount()
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        this.componentDidMount()
+    }
+
+
+    checkIfLiked(e) {
+        console.log(e)
+        let copyUpvoted = this.state.upVotedContributions;
+        for (let i = 0; i < copyUpvoted.length; ++i) {
+            if (copyUpvoted[i].id === e.id) return true;
+        }
+        return false;
+    }
+
+
+
 
     render() {
         const contribution = this.state.contribution;
@@ -101,7 +180,12 @@ class ContribShow extends React.Component {
             <div className="content">
                 <div style={{marginTop: '15px', marginBottom: '20px'}} className="leftmar">
                     <div className="inline">
-                        <small>▲&nbsp;&nbsp;</small>
+                        <small>{
+                            this.checkIfLiked(contribution) ?
+                                    (<a href="#" onClick={() => this.dislike(contribution.id,1)}>▼</a>) :
+                                    (<a href="#" onClick={() => this.like(contribution.id, 1)}>▲</a>)
+
+                        }</small>
                         <a className="esl" href={contribution.url}>{contribution.title} </a>
                             { contribution.url?(
                                     <small style={{marginLeft: '3px'}}>

@@ -170,7 +170,7 @@ class RenderReplies extends React.Component {
                     <div className="pad-comment">
                         {e.content} <br />
                         <small>
-                            <Link to={'/replies/'+ e.id}>
+                            <Link to={'/replies/'+ e.id }>
                                 Reply
                             </Link>
                         </small>

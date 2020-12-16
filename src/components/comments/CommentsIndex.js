@@ -1,7 +1,6 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 import User from "../users/User";
-import * as timeago from 'timeago.js';
 import TimeAgo from "timeago-react";
 
 class CommentsIndex extends React.Component {

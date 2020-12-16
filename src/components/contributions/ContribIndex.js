@@ -14,7 +14,6 @@ class ContribIndex extends React.Component {
             upVotedContributions: [],
             user_id: this.props.match.params.id
         }
-        this.updateUpvotedContributions = this.updateUpvotedContributions.bind(this)
     }
 
     componentDidMount() {
@@ -82,17 +81,18 @@ class ContribIndex extends React.Component {
             .then(response => response.json())
             .then(
                 (result) => {
+                    console.log(result)
                     this.setState({
                         upVotedContributions: result
+
                     })
-                    this.componentDidMount()
                 })
             .catch(error => {
                 console.log(error)
             })
     }
 
-    like(id, i) {
+    like(id) {
         const url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes";
         const requestOptions = {
             method: 'POST',
@@ -106,14 +106,16 @@ class ContribIndex extends React.Component {
         fetch(url, requestOptions)
             .then(response => response.json())
             .then(data => {
-                this.addUpVotedContribution(data, i)
+                //this.addUpVotedContribution(data, i)
+                this.componentDidMount()
 
             }).catch(error => {
             console.log(error)
         })
+
     }
 
-    dislike(id, i) {
+    dislike(id) {
         const url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id + "/likes"
         const requestOptions = {
             method: 'DELETE',
@@ -128,72 +130,12 @@ class ContribIndex extends React.Component {
             .then(() => {
             })
             .then(() => {
-                this.deleteUpVotedContribution(i)
-                if (this.props.location.pathname === "/upvoted/contributions") this.updateUpvotedContributions()
+                this.componentDidMount()
             })
             .catch(error => {
                 console.log(error)
             })
-    }
-
-    updateUpvotedContributions() {
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/upvoted"
-        const requestOptions = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-API-KEY': localStorage.getItem('token')
-            },
-            body: null
-        };
-
-        fetch(url,requestOptions)
-            .then(response => response.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        contributions: result
-                    })
-                })
-            .catch(error => {
-                console.log(error)
-            })
-    }
-
-
-    deleteUpVotedContribution(i) {
-        let copyUpVoted = this.state.upVotedContributions;
-        let copyContrib = this.state.contributions;
-        let index = -1;
-        for (let k = 0; i <= copyContrib.length; ++k) {
-            if (copyUpVoted[k].id === copyContrib[i].id) {
-                index = k;
-                break;
-            }
-        }
-        if (index > -1) {
-            copyUpVoted.splice(index, 1);
-            copyContrib[i].points -= 1;
-
-        }
-        this.setState({
-            upVotedContributions: copyUpVoted,
-            contributions: copyContrib
-        })
-    }
-
-    addUpVotedContribution(data, i) {
-        console.log(data);
-        if (!data.hasOwnProperty("code")) {
-            let copyUpVoted = this.state.upVotedContributions.slice();
-            copyUpVoted.push(data);
-            let copyContrib = this.state.contributions;
-            copyContrib[i] = data;
-            this.setState({
-                upVotedContributions: copyUpVoted,
-                contributions: copyContrib
-            })
-        }
+        this.componentDidMount()
     }
 
     checkIfLiked(e) {
@@ -211,8 +153,8 @@ class ContribIndex extends React.Component {
                     <div className="url-link">
                         <small style={{marginRight: '6px'}}>
                             {this.checkIfLiked(e) ?
-                                (<a href="#" onClick={() => this.dislike(e.id, i, 1)}>▼</a>) :
-                                (<a href="#" onClick={() => this.like(e.id, i, 1)}>▲</a>)
+                                (<a href="#" onClick={() => this.dislike(e.id,  1)}>▼</a>) :
+                                (<a href="#" onClick={() => this.like(e.id,  1)}>▲</a>)
                             }
 
                         </small>

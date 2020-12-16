@@ -13,7 +13,8 @@ class CommentShow extends React.Component {
             id: this.props.match.params.id,
             comment: [],
             replies: [],
-            content: ""
+            content: "",
+            upVotedComments : []
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -24,6 +25,7 @@ class CommentShow extends React.Component {
 
         this.fetchComment()
         this.fetchReplies()
+        this.fetchUpvotedComments()
     }
 
     fetchComment() {
@@ -72,6 +74,34 @@ class CommentShow extends React.Component {
         this.doPost()
     }
 
+
+    fetchUpvotedComments() {
+
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        let urlVoted = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/upvoted"
+        fetch(urlVoted, requestOptions)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    console.log(result)
+                    this.setState({
+                        upVotedComments: result
+
+                    })
+                })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     doPost() {
 
         let url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + this.state.id + "/replies"
@@ -96,13 +126,75 @@ class CommentShow extends React.Component {
             })
     }
 
+    like(id) {
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + id + "/likes";
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                //this.addUpVotedContribution(data, i)
+                this.componentDidMount()
+
+            }).catch(error => {
+            console.log(error)
+        })
+
+    }
+
+
+    dislike(id) {
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + id + "/likes"
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(() => {
+            })
+            .then(() => {
+                this.componentDidMount()
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        this.componentDidMount()
+    }
+
+
+    checkIfLiked(e) {
+        let copyUpvoted = this.state.upVotedComments;
+        for (let i = 0; i < copyUpvoted.length; ++i) {
+            if (copyUpvoted[i].id === e.id) return true;
+        }
+        return false;
+    }
+
+
+
     render() {
         const comment = this.state.comment;
         return (
             <div className="content">
                 <div style={{marginTop: '15px', marginBottom: '20px'}} className="leftmar">
                     <div className="inline">
-                        <small>▲&nbsp;&nbsp;</small>
+                        <small>
+                            {this.checkIfLiked(comment) ?
+                            (<a href="#" onClick={() => this.dislike(comment.id,  1)}>▼</a>) :
+                            (<a href="#" onClick={() => this.like(comment.id,  1)}>▲</a>)
+                        }</small>
                         {comment.content}
                     </div>
                     <div className="leftmar">
