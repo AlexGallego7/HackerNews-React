@@ -1,5 +1,20 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import * as timeago from "timeago.js";
+
+function addOneHour(day, hour) {
+    let hourAux = hour.substr(0,2)
+    let hourResult = parseInt(hourAux) + 1
+    if (hourResult % 24 === 0) {
+        hourResult = 0
+        let dayResult = parseInt(day.substr(8,2)) + 1
+        console.log(day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2))
+        return day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
+    } else {
+        console.log()
+        return day + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
+    }
+}
 
 const UserShowView = (props) => (
     <div className="content">
@@ -10,7 +25,10 @@ const UserShowView = (props) => (
             </p>
             <p>
                 <strong>Created:</strong>&emsp;&nbsp;&nbsp;
-                {props.user.created_at}
+                {props.user.hasOwnProperty("created_at")?
+                    (timeago.format(addOneHour(props.user.created_at.substr(0, 10), props.user.created_at.substr(11, 10)), 'es')):
+                    (props.user.created_at)
+                }
             </p>
             <p>
                 <strong>Karma:</strong>&emsp;&emsp;&nbsp;

@@ -1,5 +1,7 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
+import * as timeago from "timeago.js";
+
 
 class MyProfile extends React.Component {
     constructor(props) {
@@ -12,6 +14,7 @@ class MyProfile extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.addOneHour = this.addOneHour.bind(this)
     }
 
     componentDidMount() {
@@ -73,6 +76,20 @@ class MyProfile extends React.Component {
         })
     }
 
+    addOneHour(day, hour) {
+        let hourAux = hour.substr(0,2)
+        let hourResult = parseInt(hourAux) + 1
+        if (hourResult % 24 === 0) {
+            hourResult = 0
+            let dayResult = parseInt(day.substr(8,2)) + 1
+            console.log(day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2))
+            return day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
+        } else {
+            console.log()
+            return day + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
+        }
+    }
+
     render() {
         const user = this.state.user
         return (
@@ -80,7 +97,12 @@ class MyProfile extends React.Component {
                 <div>
                     <p><strong>Username:</strong>&nbsp;&nbsp;{user.username}</p>
                     <p><strong>My api key:</strong>&nbsp;{user.apiKey}</p>
-                    <p><strong>Created:</strong>&emsp;&nbsp;&nbsp;&nbsp;{user.created_at}</p>
+                    <p><strong>Created:</strong>&emsp;&nbsp;&nbsp;&nbsp;
+                        {user.hasOwnProperty("created_at")?
+                            (timeago.format(this.addOneHour(user.created_at.substr(0, 10), user.created_at.substr(11, 10)), 'es')):
+                            (user.created_at)
+                        }
+                    </p>
                     <p><strong>Karma:</strong>&emsp;&emsp;&nbsp;&nbsp;{user.karma}</p>
                     <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;</p>
                     <p><strong>About:</strong>&emsp;&emsp;&emsp;<textarea className="bottomMar" rows="6" cols="60" name="about" defaultValue={user.about} onChange={this.handleChange}/></p>

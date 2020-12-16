@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 import User from "../users/User";
+import * as timeago from 'timeago.js';
 
 class CommentsIndex extends React.Component {
 
@@ -15,7 +16,6 @@ class CommentsIndex extends React.Component {
     }
 
     componentDidMount() {
-
         let url
         let type
         if (this.state.user_id === undefined) {
