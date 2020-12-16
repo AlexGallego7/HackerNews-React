@@ -2,6 +2,7 @@ import React  from 'react';
 import {Link} from "react-router-dom";
 import RenderTree from "../comments/RenderTree";
 import TimeAgo from "timeago-react";
+import User from "../users/User";
 
 class ContribShow extends React.Component {
 
@@ -198,11 +199,9 @@ class ContribShow extends React.Component {
                     <div className="leftmar">
                         <small>
                             {contribution.points} points by
-                            &nbsp;
                             <Link to={'/users/' + contribution.user_id}>
-                                {contribution.user_id}
+                                <User user_id={contribution.user_id}/>
                             </Link>
-                            &nbsp;
                             created&nbsp;
                             <TimeAgo datetime={contribution.created_at} locale='en_US'/>
                         </small>

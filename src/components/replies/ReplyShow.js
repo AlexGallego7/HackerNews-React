@@ -2,6 +2,7 @@ import React  from 'react';
 import {Link} from "react-router-dom";
 import RenderReplies from "./RenderReplies";
 import TimeAgo from "timeago-react";
+import User from "../users/User";
 
 class ReplyShow extends React.Component {
 
@@ -199,11 +200,9 @@ class ReplyShow extends React.Component {
                     <div className="leftmar">
                         <small>
                             {reply.points} points by
-                            &nbsp;
                             <Link to={'/users/' + reply.user_id}>
-                                {reply.user_id}
+                                <User user_id={reply.user_id}/>
                             </Link>
-                            &nbsp;
                             created&nbsp;
                             <TimeAgo datetime={reply.created_at} locale='en_US'/>
                         </small>

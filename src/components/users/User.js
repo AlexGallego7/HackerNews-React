@@ -11,9 +11,18 @@ class User extends React.Component {
         }
     }
 
-    componentDidMount() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.user_id !== prevProps.user_id) {
+            this.fetchUser(this.props.user_id)
+        }
+    }
 
-        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/users/" +  this.state.id
+    componentDidMount() {
+        this.fetchUser(this.state.id)
+    }
+
+    fetchUser(id) {
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/users/" +  id
 
         fetch(url)
             .then(response => response.json())

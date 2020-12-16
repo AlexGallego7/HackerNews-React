@@ -2,6 +2,7 @@ import React  from 'react';
 import {Link} from "react-router-dom";
 import RenderReplies from "../replies/RenderReplies";
 import TimeAgo from "timeago-react";
+import User from "../users/User";
 
 class CommentShow extends React.Component {
 
@@ -200,11 +201,9 @@ class CommentShow extends React.Component {
                     <div className="leftmar">
                         <small>
                             {comment.points} points by
-                            &nbsp;
                             <Link to={'/users/' + comment.user_id}>
-                                {comment.user_id}
+                                <User user_id={comment.user_id}/>
                             </Link>
-                            &nbsp;
                             created&nbsp;
                             <TimeAgo datetime={comment.created_at} locale='en_US'/>
                         </small>
