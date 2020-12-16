@@ -1,6 +1,7 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import RenderReplies from "./RenderReplies";
+import TimeAgo from "timeago-react";
 
 class ReplyShow extends React.Component {
 
@@ -110,9 +111,8 @@ class ReplyShow extends React.Component {
                                 {reply.user_id}
                             </Link>
                             &nbsp;
-                            created at:
-                            &nbsp;
-                            {reply.created_at}
+                            created&nbsp;
+                            <TimeAgo datetime={reply.created_at} locale='en_US'/>
                         </small>
                     </div>
                     <div className="content">

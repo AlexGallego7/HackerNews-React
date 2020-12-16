@@ -61,7 +61,7 @@ class Header extends React.Component {
                     <Link to={'/contributions'}><h1> Hacker News | </h1></Link>
                     <Link to={'/newest'}> new | </Link>
                     <Link to={'/ask'}>ask | </Link>
-                    <Link to={'/comments/users/2'}>threads | </Link>
+                    <Link to={'/comments/users/'+this.state.user.id}>threads | </Link>
                     <Link to={'/submit'}>submit</Link> |
                     api-key: {localStorage.getItem('token')}
                     <button onClick={this.changeApiKey}>change</button>

@@ -1,6 +1,7 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import RenderTree from "../comments/RenderTree";
+import TimeAgo from "timeago-react";
 
 class ContribShow extends React.Component {
 
@@ -118,7 +119,8 @@ class ContribShow extends React.Component {
                                 {contribution.user_id}
                             </Link>
                             &nbsp;
-                            created at: {contribution.created_at}
+                            created&nbsp;
+                            <TimeAgo datetime={contribution.created_at} locale='en_US'/>
                         </small>
                         <p style={{marginTop: '7px'}}>{contribution.text}</p>
                     </div>

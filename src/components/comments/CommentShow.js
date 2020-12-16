@@ -1,6 +1,7 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import RenderReplies from "../replies/RenderReplies";
+import TimeAgo from "timeago-react";
 
 class CommentShow extends React.Component {
 
@@ -111,9 +112,9 @@ class CommentShow extends React.Component {
                             <Link to={'/users/' + comment.user_id}>
                                 {comment.user_id}
                             </Link>
-                            created at:
                             &nbsp;
-                            {comment.created_at}
+                            created&nbsp;
+                            <TimeAgo datetime={comment.created_at} locale='en_US'/>
                         </small>
                     </div>
                     <div className="content">

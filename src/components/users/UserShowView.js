@@ -1,6 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import * as timeago from "timeago.js";
+import User from "./User";
+import TimeAgo from "timeago-react";
 
 function addOneHour(day, hour) {
     let hourAux = hour.substr(0,2)
@@ -25,10 +27,7 @@ const UserShowView = (props) => (
             </p>
             <p>
                 <strong>Created:</strong>&emsp;&nbsp;&nbsp;
-                {props.user.hasOwnProperty("created_at")?
-                    (timeago.format(addOneHour(props.user.created_at.substr(0, 10), props.user.created_at.substr(11, 10)), 'es')):
-                    (props.user.created_at)
-                }
+                <TimeAgo datetime={props.user.created_at} locale='en_US'/>
             </p>
             <p>
                 <strong>Karma:</strong>&emsp;&emsp;&nbsp;

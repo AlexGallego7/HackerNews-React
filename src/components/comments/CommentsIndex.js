@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from "react-router-dom";
 import User from "../users/User";
 import * as timeago from 'timeago.js';
+import TimeAgo from "timeago-react";
 
 class CommentsIndex extends React.Component {
 
@@ -220,9 +221,8 @@ class CommentsIndex extends React.Component {
                                 <User user_id={e.user_id}/>
                             </Link>
                             &nbsp;
-                            created_at:
-                            &nbsp;
-                            {e.created_at.substr(0, 10) + ' ' + e.created_at.substr(11, 10) + ' | '}
+                            <TimeAgo datetime={e.created_at} locale='en_US'/>
+                            &nbsp;|&nbsp;
                             <Link to={'/comments/' + e.id}>
                                 replies
                             </Link>

@@ -1,8 +1,7 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import User from "../users/User";
-import {convertTime} from "../../utils";
-import * as timeago from "timeago.js";
+import TimeAgo from 'timeago-react';
 
 
 class ContribIndex extends React.Component {
@@ -16,7 +15,6 @@ class ContribIndex extends React.Component {
             user_id: this.props.match.params.id
         }
         this.updateUpvotedContributions = this.updateUpvotedContributions.bind(this)
-        this.addOneHour = this.addOneHour.bind(this)
     }
 
     componentDidMount() {
@@ -206,20 +204,6 @@ class ContribIndex extends React.Component {
         return false;
     }
 
-    addOneHour(day, hour) {
-        let hourAux = hour.substr(0,2)
-        let hourResult = parseInt(hourAux) + 1
-        if (hourResult % 24 === 0) {
-            hourResult = 0
-            let dayResult = parseInt(day.substr(8,2)) + 1
-            console.log(day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2))
-            return day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
-        } else {
-            console.log()
-            return day + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
-        }
-    }
-
     render() {
         let contributions = this.state.contributions.map((e, i) => {
             return (
@@ -246,7 +230,8 @@ class ContribIndex extends React.Component {
                             <Link to={'/users/' + e.user_id}>
                                 <User user_id={e.user_id}/>
                             </Link>
-                            {timeago.format(this.addOneHour(e.created_at.substr(0, 10), e.created_at.substr(11, 10)),'es') + ' | '}
+                            <TimeAgo datetime={e.created_at} locale='en_US'/>
+                            &nbsp;|&nbsp;
                             <Link to={'/contributions/' + e.id}>
                                 comments
                             </Link>

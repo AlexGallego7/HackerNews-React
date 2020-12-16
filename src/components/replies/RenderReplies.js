@@ -1,5 +1,7 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
+import User from "../users/User";
+import TimeAgo from "timeago-react";
 
 class RenderReplies extends React.Component {
 
@@ -158,7 +160,12 @@ class RenderReplies extends React.Component {
                             }
 
                         </small>
-                        {e.points} points by {e.user_id} created at: {e.created_at}
+                        {e.points} points by
+                        <Link to={'/users/' + e.user_id}>
+                            <User user_id={e.user_id}/>
+                        </Link>
+                        created&nbsp;
+                        <TimeAgo datetime={e.created_at} locale='en_US'/>
                     </small>
                     <div className="pad-comment">
                         {e.content} <br />

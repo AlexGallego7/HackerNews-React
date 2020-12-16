@@ -2,6 +2,7 @@ import React  from 'react';
 import {Link} from "react-router-dom";
 import RenderReplies from "../replies/RenderReplies";
 import User from "../users/User";
+import TimeAgo from "timeago-react";
 
 class RenderTree extends React.Component {
 
@@ -157,11 +158,13 @@ class RenderTree extends React.Component {
                                 (<a href="#" onClick={() => this.like(e.id, i, 1)}>▲</a>)
                             }
 
-                        </small>{e.points} points by
+                        </small>
+                        {e.points} points by
                         <Link to={'/users/' + e.user_id}>
                             <User user_id={e.user_id}/>
                         </Link>
-                        created at: {e.created_at}
+                        created&nbsp;
+                        <TimeAgo datetime={e.created_at} locale='en_US'/>
                     </small>
                     <div className="pad-comment">
                         {e.content} <br />

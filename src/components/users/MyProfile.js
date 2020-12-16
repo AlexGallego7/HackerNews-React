@@ -1,6 +1,7 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
 import * as timeago from "timeago.js";
+import TimeAgo from "timeago-react";
 
 
 class MyProfile extends React.Component {
@@ -98,10 +99,7 @@ class MyProfile extends React.Component {
                     <p><strong>Username:</strong>&nbsp;&nbsp;{user.username}</p>
                     <p><strong>My api key:</strong>&nbsp;{user.apiKey}</p>
                     <p><strong>Created:</strong>&emsp;&nbsp;&nbsp;&nbsp;
-                        {user.hasOwnProperty("created_at")?
-                            (timeago.format(this.addOneHour(user.created_at.substr(0, 10), user.created_at.substr(11, 10)), 'es')):
-                            (user.created_at)
-                        }
+                        <TimeAgo datetime={user.created_at} locale='en_US'/>
                     </p>
                     <p><strong>Karma:</strong>&emsp;&emsp;&nbsp;&nbsp;{user.karma}</p>
                     <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;</p>
