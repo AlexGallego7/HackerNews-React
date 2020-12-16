@@ -73,6 +73,10 @@ class CommentShow extends React.Component {
     handleSubmit(event)  {
         event.preventDefault()
         this.doPost()
+        this.setState({
+                content: ""
+            }
+        )
     }
 
 

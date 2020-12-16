@@ -9,6 +9,7 @@ import CommentsIndex from "./components/comments/CommentsIndex";
 import CommentShow from "./components/comments/CommentShow";
 import ReplyShow from "./components/replies/ReplyShow";
 import MyProfile from "./components/users/MyProfile";
+import ContribEdit from "./components/contributions/ContribEdit";
 
 
 const AppRouter = () => {
@@ -18,6 +19,7 @@ const AppRouter = () => {
             <Route exact path="/" component={ContribIndex}/>
             <Route exact path="/contributions" component={ContribIndex} />
             <Route exact path="/contributions/:id" component={ContribShow} />
+            <Route exact path="/contributions/:id/edit" component={ContribEdit} />
             <Route exact path="/newest" component={ContribIndex} />
             <Route exact path="/ask" component={ContribIndex} />
             <Route exact path="/users/:id" component={UserShow} />

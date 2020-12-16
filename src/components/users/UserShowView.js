@@ -1,22 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import * as timeago from "timeago.js";
-import User from "./User";
 import TimeAgo from "timeago-react";
-
-function addOneHour(day, hour) {
-    let hourAux = hour.substr(0,2)
-    let hourResult = parseInt(hourAux) + 1
-    if (hourResult % 24 === 0) {
-        hourResult = 0
-        let dayResult = parseInt(day.substr(8,2)) + 1
-        console.log(day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2))
-        return day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
-    } else {
-        console.log()
-        return day + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
-    }
-}
 
 const UserShowView = (props) => (
     <div className="content">

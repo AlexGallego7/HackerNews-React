@@ -11,14 +11,44 @@ class ContribIndex extends React.Component {
         this.state = {
             error: null,
             contributions: [],
+            myApiKey: localStorage.getItem('token'),
+            myID: -1,
             upVotedContributions: [],
             user_id: this.props.match.params.id
         }
     }
 
     componentDidMount() {
+        this.fetchActualUser()
         this.fetchContributions()
         this.fetchUpvoted()
+    }
+
+    fetchActualUser() {
+
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/myprofile"
+
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        myApiKey: localStorage.getItem('token'),
+                        myID: result.id
+                    })
+                })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     fetchContributions() {
@@ -81,7 +111,6 @@ class ContribIndex extends React.Component {
             .then(response => response.json())
             .then(
                 (result) => {
-                    console.log(result)
                     this.setState({
                         upVotedContributions: result
 
@@ -90,6 +119,25 @@ class ContribIndex extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+    }
+
+    deleteContrib(id){
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id;
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(() => {
+                this.componentDidMount()
+            }).catch(error => {
+            console.log(error)
+        })
     }
 
     like(id) {
@@ -146,17 +194,23 @@ class ContribIndex extends React.Component {
         return false;
     }
 
+    checkIfIsMine(contrib_user_id) {
+        if (this.state.myID !== -1) {
+            return this.state.myID == contrib_user_id
+        }
+        return false
+    }
+
     render() {
         let contributions = this.state.contributions.map((e, i) => {
             return (
-                <li style={{marginBottom: '10px'}} key={i}>
+                <li style={{marginBottom: '6px'}} key={i}>
                     <div className="url-link">
                         <small style={{marginRight: '6px'}}>
                             {this.checkIfLiked(e) ?
                                 (<a href="#" onClick={() => this.dislike(e.id,  1)}>▼</a>) :
                                 (<a href="#" onClick={() => this.like(e.id,  1)}>▲</a>)
                             }
-
                         </small>
                         {e.url ? (
                             <a href={e.url}>{e.title}
@@ -168,15 +222,32 @@ class ContribIndex extends React.Component {
                     </div>
                     <div>
                         <small className="leftmar">
-                            {e.points} by
-                            <Link to={'/users/' + e.user_id}>
-                                <User user_id={e.user_id}/>
-                            </Link>
-                            <TimeAgo datetime={e.created_at} locale='en_US'/>
-                            &nbsp;|&nbsp;
-                            <Link to={'/contributions/' + e.id}>
-                                comments
-                            </Link>
+                            {e.points} points by
+                            {this.checkIfIsMine(e.user_id) ? (
+                                    <React.Fragment>
+                                        <Link to={'/myProfile'}>
+                                            <User user_id={e.user_id}/>
+                                        </Link>
+                                        <TimeAgo datetime={e.created_at} locale='en_US'/>
+                                        &nbsp;|&nbsp;
+                                        <Link to={'/contributions/' + e.id}>
+                                            comments |
+                                        </Link>
+                                        <Link to={'/contributions/' + e.id + '/edit'}> edit |</Link>
+                                        <a href="#" onClick={() => this.deleteContrib(e.id)}>delete</a>
+                                    </React.Fragment>
+                                ) :
+                                <React.Fragment>
+                                    <Link to={'/users/' + e.user_id}>
+                                        <User user_id={e.user_id}/>
+                                    </Link>
+                                    <TimeAgo datetime={e.created_at} locale='en_US'/>
+                                    &nbsp;|&nbsp;
+                                    <Link to={'/contributions/' + e.id}>
+                                        comments
+                                    </Link>
+                                </React.Fragment>
+                            }
                         </small>
                     </div>
                 </li>
@@ -188,7 +259,6 @@ class ContribIndex extends React.Component {
                     {
                         contributions
                     }
-
                 </ol>
             </div>
         );
