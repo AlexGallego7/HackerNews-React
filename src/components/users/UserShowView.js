@@ -1,0 +1,51 @@
+import React from "react";
+import {Link} from "react-router-dom";
+import * as timeago from "timeago.js";
+import User from "./User";
+import TimeAgo from "timeago-react";
+
+function addOneHour(day, hour) {
+    let hourAux = hour.substr(0,2)
+    let hourResult = parseInt(hourAux) + 1
+    if (hourResult % 24 === 0) {
+        hourResult = 0
+        let dayResult = parseInt(day.substr(8,2)) + 1
+        console.log(day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2))
+        return day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
+    } else {
+        console.log()
+        return day + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
+    }
+}
+
+const UserShowView = (props) => (
+    <div className="content">
+        <div style={{marginLeft: '10px', marginTop: '10px'}}>
+            <p>
+                <strong>Username:</strong>&nbsp;&nbsp;
+                {props.user.username}
+            </p>
+            <p>
+                <strong>Created:</strong>&emsp;&nbsp;&nbsp;
+                <TimeAgo datetime={props.user.created_at} locale='en_US'/>
+            </p>
+            <p>
+                <strong>Karma:</strong>&emsp;&emsp;&nbsp;
+                {props.user.karma}
+            </p>
+            <p style={{paddingBottom: '10px'}}>
+                <strong>About:</strong>&emsp;&emsp;&nbsp;
+                {props.user.about}
+            </p>
+            <p>
+                <Link to={'/contributions/users/' + props.user.id} className="wow">contributions</Link>
+            </p>
+            <p>
+                <Link to={'/comments/users/' + props.user.id} className="wow">comments</Link>
+            </p>
+        </div>
+
+    </div>
+);
+
+export default UserShowView
