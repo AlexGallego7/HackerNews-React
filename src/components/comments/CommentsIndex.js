@@ -10,14 +10,18 @@ class CommentsIndex extends React.Component {
         this.state = {
             user_id: this.props.match.params.id,
             comments: [],
+
             myID: -1,
+
             upvotedComments: []
         }
         this.updateUpvotedComments = this.updateUpvotedComments.bind(this)
     }
 
     componentDidMount() {
+
         this.fetchActualUser()
+
         let url
         let type
         if (this.state.user_id === undefined) {
@@ -28,6 +32,7 @@ class CommentsIndex extends React.Component {
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/users/" + this.state.user_id
             type = 1
         }
+
 
         if (type === 1) {
             fetch(url)
@@ -87,6 +92,7 @@ class CommentsIndex extends React.Component {
             })
     }
 
+
     fetchActualUser() {
 
         let url = "https://asw-hackernews-kaai12.herokuapp.com/api/myprofile"
@@ -131,6 +137,7 @@ class CommentsIndex extends React.Component {
             console.log(error)
         })
     }
+
 
     like(id, i) {
         const url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + id + "/likes";
@@ -245,6 +252,7 @@ class CommentsIndex extends React.Component {
         return false;
     }
 
+
     checkIfIsMine(contrib_user_id) {
         if (this.state.myID !== -1) {
             return this.state.myID == contrib_user_id
@@ -277,6 +285,7 @@ class CommentsIndex extends React.Component {
                             <Link to={'/comments/' + e.id}>
                                 replies
                             </Link>
+
                             {this.checkIfIsMine(e.user_id) ?
                                 <React.Fragment>
                                     &nbsp;|&nbsp;
@@ -284,6 +293,7 @@ class CommentsIndex extends React.Component {
                                     <a href="#" onClick={() => this.deleteComment(e.id)}>delete</a>
                                 </React.Fragment> : null
                             }
+
                         </small>
                     </div>
                 </li>

@@ -95,10 +95,12 @@ class ReplyShow extends React.Component {
     handleSubmit(event)  {
         event.preventDefault()
         this.doPost()
+
         this.setState({
                 content: ""
             }
         )
+
     }
 
     doPost() {
@@ -168,6 +170,7 @@ class ReplyShow extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+
     }
 
 
@@ -198,9 +201,11 @@ class ReplyShow extends React.Component {
                             (<a href="#" onClick={() => this.dislike(reply.id,  1)}>▼</a>) :
                             (<a href="#" onClick={() => this.like(reply.id,  1)}>▲</a>)
                         }</small>
+
                         <span style={{marginLeft: '8px'}}>{reply.content}</span>
                     </div>
                     <div style={{marginLeft: '20px'}}  className="leftmar">
+
                         <small>
                             {reply.points} points by
                             <Link to={'/users/' + reply.user_id}>
@@ -210,7 +215,9 @@ class ReplyShow extends React.Component {
                             <TimeAgo datetime={reply.created_at} locale='en_US'/>
                         </small>
                     </div>
+
                     <div style={{marginTop: '15px'}} className="content">
+
                         <form>
                             <div className="leftmar">
                         <textarea className="bottomMar" rows="6" cols="60" name="content" value={this.state.content}

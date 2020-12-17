@@ -59,6 +59,7 @@ class ContribForm extends React.Component {
         return (
             <div className="content">
                 <div style={{color: "red", marginLeft: '34px', marginTop: '10px'}}>
+
                     {this.state.error}
                 </div>
                 <form>

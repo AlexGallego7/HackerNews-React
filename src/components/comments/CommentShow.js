@@ -36,6 +36,7 @@ class CommentShow extends React.Component {
             .then(response => response.json())
             .then(
                 (result) => {
+
                     this.setState({
                         comment: result,
                     })
@@ -195,9 +196,11 @@ class CommentShow extends React.Component {
                             (<a href="#" onClick={() => this.dislike(comment.id,  1)}>▼</a>) :
                             (<a href="#" onClick={() => this.like(comment.id,  1)}>▲</a>)
                         }</small>
+
                         <span style={{marginLeft: '8px'}}>{comment.content}</span>
                     </div>
                     <div style={{marginLeft: '20px'}} className="leftmar">
+
                         <small>
                             {comment.points} points by
                             <Link to={'/users/' + comment.user_id}>
@@ -207,6 +210,7 @@ class CommentShow extends React.Component {
                             <TimeAgo datetime={comment.created_at} locale='en_US'/>
                         </small>
                     </div>
+
                     <div style={{marginTop: '15px'}} className="content">
                         <form>
                             <div className="leftmar">

@@ -1,5 +1,7 @@
+
 import React from 'react';
 import {Link} from "react-router-dom";
+
 import TimeAgo from "timeago-react";
 
 
@@ -26,7 +28,9 @@ class MyProfile extends React.Component {
             }
         };
 
+
         fetch(this.state.url, requestOptions)
+
             .then(response => response.json())
             .then(
                 (result) => {
@@ -56,7 +60,9 @@ class MyProfile extends React.Component {
 
         console.log(JSON.stringify(k))
 
+
         fetch(this.state.url, requestOptions)
+
             .then(response => response.json())
             .then(
                 (result) => {
@@ -76,6 +82,7 @@ class MyProfile extends React.Component {
         })
     }
 
+
     render() {
         const user = this.state.user
         return (
@@ -88,9 +95,11 @@ class MyProfile extends React.Component {
                     </p>
                     <p><strong>Karma:</strong>&emsp;&emsp;&nbsp;&nbsp;{user.karma}</p>
                     <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;</p>
+
                     <p><strong>About:</strong>&emsp;&emsp;&emsp;<textarea className="bottomMar" rows="6" cols="60"
                                                                           name="about" defaultValue={user.about}
                                                                           onChange={this.handleChange}/></p>
+
 
                     <p>
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
@@ -113,7 +122,9 @@ class MyProfile extends React.Component {
                     </p>
 
                     <br/>
+
                     <div className="actions">
+
                         <input className="bottomMar" type="submit" value="change about" onClick={this.handleSubmit}/>
                     </div>
 

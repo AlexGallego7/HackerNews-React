@@ -7,4 +7,4 @@ Projecte ASW FIB UPC, HackerNews React
   - Isaac Muñoz
   - Kamal El Hachmi
 ## Heroku
-  https://asw-hackernews-kaai12.herokuapp.com/
+  https://hacker-news-asw-react.herokuapp.com/

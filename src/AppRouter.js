@@ -13,6 +13,8 @@ import ContribEdit from "./components/contributions/ContribEdit";
 import CommentEdit from "./components/comments/CommentEdit";
 
 
+
+
 const AppRouter = () => {
     return (
         <Router>
@@ -33,7 +35,6 @@ const AppRouter = () => {
             <Route exact path="/comments/:id" component={CommentShow}/>
             <Route exact path="/comments/:id/edit" component={CommentEdit}/>
             <Route exact path="/myProfile" component={MyProfile}/>
-
         </Router>
     );
 };

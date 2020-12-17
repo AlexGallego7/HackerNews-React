@@ -65,6 +65,7 @@ class Header extends React.Component {
                     <Link to={'/submit'}>submit</Link> |
                     api-key: {localStorage.getItem('token')}
                     <button className="change" onClick={this.changeApiKey}>change</button>
+
                     <Link className="right" to={'/myProfile'}> {this.state.user.username}({this.state.user.karma})</Link>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
+
 import TimeAgo from "timeago-react";
+
 
 const UserShowView = (props) => (
     <div className="content">

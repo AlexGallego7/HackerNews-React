@@ -11,18 +11,22 @@ class ContribIndex extends React.Component {
         this.state = {
             error: null,
             contributions: [],
+
             myApiKey: localStorage.getItem('token'),
             myID: -1,
+
             upVotedContributions: [],
             user_id: this.props.match.params.id
         }
     }
 
     componentDidMount() {
+
         this.fetchActualUser()
         this.fetchContributions()
         this.fetchUpvoted()
     }
+
 
     fetchActualUser() {
 
@@ -111,6 +115,7 @@ class ContribIndex extends React.Component {
             .then(response => response.json())
             .then(
                 (result) => {
+
                     this.setState({
                         upVotedContributions: result
 
@@ -120,6 +125,7 @@ class ContribIndex extends React.Component {
                 console.log(error)
             })
     }
+
 
     deleteContrib(id){
         const url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" + id;
@@ -194,6 +200,7 @@ class ContribIndex extends React.Component {
         return false;
     }
 
+
     checkIfIsMine(contrib_user_id) {
         if (this.state.myID !== -1) {
             return this.state.myID == contrib_user_id
@@ -205,12 +212,14 @@ class ContribIndex extends React.Component {
         let contributions = this.state.contributions.map((e, i) => {
             return (
                 <li style={{marginBottom: '6px'}} key={i}>
+
                     <div className="url-link">
                         <small style={{marginRight: '6px'}}>
                             {this.checkIfLiked(e) ?
                                 (<a href="#" onClick={() => this.dislike(e.id,  1)}>▼</a>) :
                                 (<a href="#" onClick={() => this.like(e.id,  1)}>▲</a>)
                             }
+
                         </small>
                         {e.url ? (
                             <a href={e.url}>{e.title}
@@ -222,6 +231,7 @@ class ContribIndex extends React.Component {
                     </div>
                     <div>
                         <small className="leftmar">
+
                             {e.points} points by
                             {this.checkIfIsMine(e.user_id) ? (
                                     <React.Fragment>
@@ -260,6 +270,7 @@ class ContribIndex extends React.Component {
                     {
                         contributions
                     }
+
                 </ol>
             </div>
         );
