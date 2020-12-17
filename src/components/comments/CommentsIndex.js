@@ -255,7 +255,7 @@ class CommentsIndex extends React.Component {
 
     checkIfIsMine(contrib_user_id) {
         if (this.state.myID !== -1) {
-            return this.state.myID == contrib_user_id
+            return this.state.myID === contrib_user_id
         }
         return false
     }

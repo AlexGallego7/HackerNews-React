@@ -9,15 +9,15 @@ class Header extends React.Component {
             api: false,
             user: []
         }
-        localStorage.setItem('token', 'Kq3Bs4dEBkTxdUvlSk7faw')
+        localStorage.setItem('token', 'GHN_Ok5wxjE0OCf2s34U3Q')
         this.changeApiKey = this.changeApiKey.bind(this)
     }
 
     changeApiKey(e) {
         if(this.state.api)
-            localStorage.setItem('token', 'Kq3Bs4dEBkTxdUvlSk7faw')
+            localStorage.setItem('token', 'GHN_Ok5wxjE0OCf2s34U3Q')
         else
-            localStorage.setItem('token', '-ExnIm9fIjM-Za8sfP7RYg')
+            localStorage.setItem('token', 'itvyVfXtvB6Z0F3oCbFYpA')
 
         const neg_api = !this.state.api
 
