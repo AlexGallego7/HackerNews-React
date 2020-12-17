@@ -163,7 +163,6 @@ class ContribShow extends React.Component {
             .catch(error => {
                 console.log(error)
             })
-        this.componentDidMount()
     }
 
 
@@ -175,12 +174,15 @@ class ContribShow extends React.Component {
         return false;
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    /*componentDidUpdate(prevProps, prevState, snapshot) {
         //TODO: Bucle infinito al hacer delete
-        if (this.props.match.params.id !== prevProps.match.params.id) {
-            this.componentDidMount()
+        console.log(this.state.comments)
+        console.log(prevState.comments)
+        if (this.state.comments !== prevState.comments) {
+            this.fetchComments()
+            console.log("bucle =?")
         }
-    }
+    }*/
 
     render() {
         const contribution = this.state.contribution;

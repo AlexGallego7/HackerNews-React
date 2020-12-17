@@ -168,7 +168,6 @@ class ReplyShow extends React.Component {
             .catch(error => {
                 console.log(error)
             })
-        this.componentDidMount()
     }
 
 

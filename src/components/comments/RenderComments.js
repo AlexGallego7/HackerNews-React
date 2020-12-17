@@ -19,7 +19,7 @@ class RenderComments extends React.Component {
         }
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
+   static getDerivedStateFromProps(nextProps, prevState) {
         if (JSON.stringify(nextProps.comments) !== JSON.stringify(prevState.comments)){
             if(nextProps.comments)
                 return({
@@ -31,18 +31,24 @@ class RenderComments extends React.Component {
         return null;
     }
 
-/*
-    componentWillReceiveProps(props) {
-        console.log(props)
-        this.setState({
-            ...this.state,
-            comments: props.comments
-        })
-    }
-*/
+
+
+    /*
+        componentWillReceiveProps(props) {
+            console.log(props)
+            this.setState({
+                ...this.state,
+                comments: props.comments
+            })
+        }
+    */
 
     componentDidMount() {
         this.fetchActualUser()
+        this.fetchComments()
+    }
+
+    fetchComments () {
         let url = ""
         if (this.state.type === 'contribution')
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" +  this.state.idFather + "/comments"
@@ -51,11 +57,15 @@ class RenderComments extends React.Component {
 
         fetch(url)
             .then(response => response.json())
-            .then()
+            .then(data => {
+                console.log(data)
+                this.setState({
+                    comments: data
+                })
+            })
             .catch(error => {
                 console.log(error)
             })
-
     }
 
     fetchActualUser() {
@@ -118,7 +128,7 @@ class RenderComments extends React.Component {
 
         fetch(url, requestOptions)
             .then(() => {
-                this.componentDidMount()
+                this.fetchComments()
             }).catch(error => {
             console.log(error)
         })
