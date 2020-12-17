@@ -10,12 +10,14 @@ class CommentsIndex extends React.Component {
         this.state = {
             user_id: this.props.match.params.id,
             comments: [],
+            myID: -1,
             upvotedComments: []
         }
         this.updateUpvotedComments = this.updateUpvotedComments.bind(this)
     }
 
     componentDidMount() {
+        this.fetchActualUser()
         let url
         let type
         if (this.state.user_id === undefined) {
@@ -26,7 +28,6 @@ class CommentsIndex extends React.Component {
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/users/" + this.state.user_id
             type = 1
         }
-        console.log(url)
 
         if (type === 1) {
             fetch(url)
@@ -54,7 +55,6 @@ class CommentsIndex extends React.Component {
                 .then(response => response.json())
                 .then(
                     (result) => {
-                        console.log(result)
                         this.setState({
                             comments: result
                         })
@@ -85,6 +85,51 @@ class CommentsIndex extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+    }
+
+    fetchActualUser() {
+
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/myprofile"
+
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        myID: result.id
+                    })
+                })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    deleteComment(id){
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + id;
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(() => {
+                this.componentDidMount()
+            }).catch(error => {
+            console.log(error)
+        })
     }
 
     like(id, i) {
@@ -200,6 +245,13 @@ class CommentsIndex extends React.Component {
         return false;
     }
 
+    checkIfIsMine(contrib_user_id) {
+        if (this.state.myID !== -1) {
+            return this.state.myID == contrib_user_id
+        }
+        return false
+    }
+
     render() {
         let comments = this.state.comments.map((e, i) => {
             return (
@@ -225,6 +277,13 @@ class CommentsIndex extends React.Component {
                             <Link to={'/comments/' + e.id}>
                                 replies
                             </Link>
+                            {this.checkIfIsMine(e.user_id) ?
+                                <React.Fragment>
+                                    &nbsp;|&nbsp;
+                                    <Link to={'/'}>edit</Link>&nbsp;|&nbsp;
+                                    <a href="#" onClick={() => this.deleteComment(e.id)}>delete</a>
+                                </React.Fragment> : null
+                            }
                         </small>
                     </div>
                 </li>

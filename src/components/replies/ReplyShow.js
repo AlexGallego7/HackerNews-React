@@ -199,9 +199,9 @@ class ReplyShow extends React.Component {
                             (<a href="#" onClick={() => this.dislike(reply.id,  1)}>▼</a>) :
                             (<a href="#" onClick={() => this.like(reply.id,  1)}>▲</a>)
                         }</small>
-                        {reply.content}
+                        <span style={{marginLeft: '8px'}}>{reply.content}</span>
                     </div>
-                    <div className="leftmar">
+                    <div style={{marginLeft: '20px'}}  className="leftmar">
                         <small>
                             {reply.points} points by
                             <Link to={'/users/' + reply.user_id}>
@@ -211,7 +211,7 @@ class ReplyShow extends React.Component {
                             <TimeAgo datetime={reply.created_at} locale='en_US'/>
                         </small>
                     </div>
-                    <div className="content">
+                    <div style={{marginTop: '15px'}} className="content">
                         <form>
                             <div className="leftmar">
                         <textarea className="bottomMar" rows="6" cols="60" name="content" value={this.state.content}

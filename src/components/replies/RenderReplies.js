@@ -174,7 +174,7 @@ class RenderReplies extends React.Component {
                                 Reply
                             </Link>
                         </small>
-                        <div>
+                        <div style={{marginLeft: '22px'}}>
                             <RenderReplies idFather={e.id} type="reply"/>
                         </div>
                     </div>

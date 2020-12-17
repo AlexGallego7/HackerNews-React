@@ -4,7 +4,6 @@ class CommentForm extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props)
         this.state = {
             id: this.props.data.id,
             type: this.props.type,
@@ -51,7 +50,6 @@ class CommentForm extends React.Component {
         fetch(url, requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 this.setState({
                     id: data
                 })

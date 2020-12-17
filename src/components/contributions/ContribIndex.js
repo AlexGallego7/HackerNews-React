@@ -231,9 +231,10 @@ class ContribIndex extends React.Component {
                                         <TimeAgo datetime={e.created_at} locale='en_US'/>
                                         &nbsp;|&nbsp;
                                         <Link to={'/contributions/' + e.id}>
-                                            comments |
+                                            comments
                                         </Link>
-                                        <Link to={'/contributions/' + e.id + '/edit'}> edit |</Link>
+                                        &nbsp;|&nbsp;
+                                        <Link to={'/contributions/' + e.id + '/edit'}>edit</Link>&nbsp;|&nbsp;
                                         <a href="#" onClick={() => this.deleteContrib(e.id)}>delete</a>
                                     </React.Fragment>
                                 ) :

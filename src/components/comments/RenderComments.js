@@ -4,23 +4,22 @@ import RenderReplies from "../replies/RenderReplies";
 import User from "../users/User";
 import TimeAgo from "timeago-react";
 
-class RenderTree extends React.Component {
+class RenderComments extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props)
         this.state = {
             error: null,
             type: this.props.type,
             idFather: this.props.idFather,
             upVotedComments: [],
             comments: [],
+            myID: -1,
             hasMoreReplies: false
         }
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log(nextProps)
         if (JSON.stringify(nextProps.comments) !== JSON.stringify(prevState.comments)){
             if(nextProps.comments)
                 return({
@@ -43,6 +42,7 @@ class RenderTree extends React.Component {
 */
 
     componentDidMount() {
+        this.fetchActualUser()
         let url = ""
         if (this.state.type === 'contribution')
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/contributions/" +  this.state.idFather + "/comments"
@@ -51,14 +51,37 @@ class RenderTree extends React.Component {
 
         fetch(url)
             .then(response => response.json())
-            .then(
-                (result) => {
-                    console.log(result)
-                })
+            .then()
             .catch(error => {
                 console.log(error)
             })
 
+    }
+
+    fetchActualUser() {
+
+        let url = "https://asw-hackernews-kaai12.herokuapp.com/api/myprofile"
+
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        myID: result.id
+                    })
+                })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     like(id, i) {
@@ -77,6 +100,25 @@ class RenderTree extends React.Component {
             .then(data => {
                 this.addUpVotedComment(data, i)
 
+            }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    deleteComment(id){
+        const url = "https://asw-hackernews-kaai12.herokuapp.com/api/comments/" + id;
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': localStorage.getItem('token')
+            },
+            body: null
+        };
+
+        fetch(url, requestOptions)
+            .then(() => {
+                this.componentDidMount()
             }).catch(error => {
             console.log(error)
         })
@@ -144,7 +186,12 @@ class RenderTree extends React.Component {
         return false;
     }
 
-
+    checkIfIsMine(contrib_user_id) {
+        if (this.state.myID !== -1) {
+            return this.state.myID == contrib_user_id
+        }
+        return false
+    }
 
     render() {
         //en comptes de fer link en botto "Reply", aver si amb redirect a la path funcionaria.
@@ -165,6 +212,14 @@ class RenderTree extends React.Component {
                         </Link>
                         created&nbsp;
                         <TimeAgo datetime={e.created_at} locale='en_US'/>
+                        {this.checkIfIsMine(e.user_id) ?
+                            <React.Fragment>
+                                &nbsp;|&nbsp;
+                                <Link to={'/'}>edit</Link>&nbsp;|&nbsp;
+                                <a href="#" onClick={() => this.deleteComment(e.id)}>delete</a>
+                            </React.Fragment> : null
+                        }
+
                     </small>
                     <div className="pad-comment">
                         {e.content} <br />
@@ -173,7 +228,7 @@ class RenderTree extends React.Component {
                                 Reply
                             </Link>
                         </small>
-                        <div>
+                        <div style={{marginLeft: '22px'}}>
                             <RenderReplies idFather={e.id} type="comment" replies={this.state.replies}/>
                         </div>
                     </div>
@@ -187,4 +242,4 @@ class RenderTree extends React.Component {
     }
 }
 
-export default RenderTree;
+export default RenderComments;
