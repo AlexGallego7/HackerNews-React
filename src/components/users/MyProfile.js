@@ -1,6 +1,7 @@
-import React  from 'react';
+
+import React from 'react';
 import {Link} from "react-router-dom";
-import * as timeago from "timeago.js";
+
 import TimeAgo from "timeago-react";
 
 
@@ -27,7 +28,9 @@ class MyProfile extends React.Component {
             }
         };
 
-        fetch(this.state.url,requestOptions)
+
+        fetch(this.state.url, requestOptions)
+
             .then(response => response.json())
             .then(
                 (result) => {
@@ -57,7 +60,9 @@ class MyProfile extends React.Component {
 
         console.log(JSON.stringify(k))
 
-        fetch(this.state.url,requestOptions)
+
+        fetch(this.state.url, requestOptions)
+
             .then(response => response.json())
             .then(
                 (result) => {
@@ -77,19 +82,6 @@ class MyProfile extends React.Component {
         })
     }
 
-    addOneHour(day, hour) {
-        let hourAux = hour.substr(0,2)
-        let hourResult = parseInt(hourAux) + 1
-        if (hourResult % 24 === 0) {
-            hourResult = 0
-            let dayResult = parseInt(day.substr(8,2)) + 1
-            console.log(day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2))
-            return day.substr(0,8) + dayResult.toString() + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
-        } else {
-            console.log()
-            return day + ' ' + hourResult.toString() + ':' + hour.substr(3,2)
-        }
-    }
 
     render() {
         const user = this.state.user
@@ -103,7 +95,11 @@ class MyProfile extends React.Component {
                     </p>
                     <p><strong>Karma:</strong>&emsp;&emsp;&nbsp;&nbsp;{user.karma}</p>
                     <p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;</p>
-                    <p><strong>About:</strong>&emsp;&emsp;&emsp;<textarea className="bottomMar" rows="6" cols="60" name="about" defaultValue={user.about} onChange={this.handleChange}/></p>
+
+                    <p><strong>About:</strong>&emsp;&emsp;&emsp;<textarea className="bottomMar" rows="6" cols="60"
+                                                                          name="about" defaultValue={user.about}
+                                                                          onChange={this.handleChange}/></p>
+
 
                     <p>
                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
@@ -126,7 +122,9 @@ class MyProfile extends React.Component {
                     </p>
 
                     <br/>
-                    <div  className="actions">
+
+                    <div className="actions">
+
                         <input className="bottomMar" type="submit" value="change about" onClick={this.handleSubmit}/>
                     </div>
 

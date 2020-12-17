@@ -51,6 +51,8 @@ class RenderReplies extends React.Component {
         else
             url = "https://asw-hackernews-kaai12.herokuapp.com/api/replies/" +  this.state.idFather + "/replies"
 
+
+
         fetch(url)
             .then(response => response.json())
             .then(
@@ -174,7 +176,9 @@ class RenderReplies extends React.Component {
                                 Reply
                             </Link>
                         </small>
-                        <div>
+
+                        <div style={{marginLeft: '22px'}}>
+
                             <RenderReplies idFather={e.id} type="reply"/>
                         </div>
                     </div>

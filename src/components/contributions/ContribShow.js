@@ -1,6 +1,6 @@
 import React  from 'react';
 import {Link} from "react-router-dom";
-import RenderTree from "../comments/RenderTree";
+import RenderComments from "../comments/RenderComments";
 import TimeAgo from "timeago-react";
 import User from "../users/User";
 
@@ -93,6 +93,12 @@ class ContribShow extends React.Component {
     handleSubmit(event)  {
         event.preventDefault()
         this.doPost()
+
+        this.setState({
+                content: ""
+            }
+        )
+
     }
 
     doPost() {
@@ -159,12 +165,13 @@ class ContribShow extends React.Component {
             .catch(error => {
                 console.log(error)
             })
-        this.componentDidMount()
+
+
     }
 
 
     checkIfLiked(e) {
-        console.log(e)
+
         let copyUpvoted = this.state.upVotedContributions;
         for (let i = 0; i < copyUpvoted.length; ++i) {
             if (copyUpvoted[i].id === e.id) return true;
@@ -187,7 +194,9 @@ class ContribShow extends React.Component {
                                     (<a href="#" onClick={() => this.like(contribution.id, 1)}>▲</a>)
 
                         }</small>
-                        <a className="esl" href={contribution.url}>{contribution.title} </a>
+
+                        <a style={{marginLeft: '8px'}} className="esl" href={contribution.url}>{contribution.title} </a>
+
                             { contribution.url?(
                                     <small style={{marginLeft: '3px'}}>
                                         <a href={contribution.url}>
@@ -197,7 +206,9 @@ class ContribShow extends React.Component {
                             ): <React.Fragment/>}
                     </div>
                     <div className="leftmar">
-                        <small>
+
+                        <small style={{marginLeft: '3px'}}>
+
                             {contribution.points} points by
                             <Link to={'/users/' + contribution.user_id}>
                                 <User user_id={contribution.user_id}/>
@@ -205,7 +216,9 @@ class ContribShow extends React.Component {
                             created&nbsp;
                             <TimeAgo datetime={contribution.created_at} locale='en_US'/>
                         </small>
-                        <p style={{marginTop: '7px'}}>{contribution.text}</p>
+
+                        <p style={{marginTop: '7px', marginLeft: '6px'}}>{contribution.text}</p>
+
                     </div>
                     <div className="content">
                         <form>
@@ -221,7 +234,9 @@ class ContribShow extends React.Component {
                     </div>
                 </div>
                 <div style={{marginLeft: '15px', marginBottom: '15px'}}>
-                    <RenderTree idFather={this.state.id} type={"contribution"} comments={this.state.comments}/>
+
+                    <RenderComments idFather={this.state.id} type={"contribution"} comments={this.state.comments}/>
+
                 </div>
             </div>
         );

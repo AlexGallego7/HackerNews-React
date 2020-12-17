@@ -8,7 +8,6 @@ class CommentShow extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             error: null,
             id: this.props.match.params.id,
@@ -37,7 +36,7 @@ class CommentShow extends React.Component {
             .then(response => response.json())
             .then(
                 (result) => {
-                    console.log(result)
+
                     this.setState({
                         comment: result,
                     })
@@ -73,6 +72,10 @@ class CommentShow extends React.Component {
     handleSubmit(event)  {
         event.preventDefault()
         this.doPost()
+        this.setState({
+                content: ""
+            }
+        )
     }
 
 
@@ -92,7 +95,6 @@ class CommentShow extends React.Component {
             .then(response => response.json())
             .then(
                 (result) => {
-                    console.log(result)
                     this.setState({
                         upVotedComments: result
 
@@ -123,7 +125,6 @@ class CommentShow extends React.Component {
                 this.setState({
                     replies: new_replies
                 })
-                console.log(data)
             })
     }
 
@@ -171,7 +172,6 @@ class CommentShow extends React.Component {
             .catch(error => {
                 console.log(error)
             })
-        this.componentDidMount()
     }
 
 
@@ -196,9 +196,11 @@ class CommentShow extends React.Component {
                             (<a href="#" onClick={() => this.dislike(comment.id,  1)}>▼</a>) :
                             (<a href="#" onClick={() => this.like(comment.id,  1)}>▲</a>)
                         }</small>
-                        {comment.content}
+
+                        <span style={{marginLeft: '8px'}}>{comment.content}</span>
                     </div>
-                    <div className="leftmar">
+                    <div style={{marginLeft: '20px'}} className="leftmar">
+
                         <small>
                             {comment.points} points by
                             <Link to={'/users/' + comment.user_id}>
@@ -208,7 +210,8 @@ class CommentShow extends React.Component {
                             <TimeAgo datetime={comment.created_at} locale='en_US'/>
                         </small>
                     </div>
-                    <div className="content">
+
+                    <div style={{marginTop: '15px'}} className="content">
                         <form>
                             <div className="leftmar">
                         <textarea className="bottomMar" rows="6" cols="60" name="content" value={this.state.content}

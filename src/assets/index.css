@@ -90,6 +90,7 @@ table, .content{
 
 .header img {
   float: left;
+  margin-top: 2px;
   width: 19px;
   height: 18px;
   background: #555;
@@ -114,9 +115,15 @@ table, .content{
   display: inline;
 }
 
+
+.change{
+  margin-left: 10px;
+  margin-bottom: 1px;
+  border-radius: 10px;
+}
+
 .links{
   margin-left: 20px;
-
 }
 /* Submissions */
 .url-link{
