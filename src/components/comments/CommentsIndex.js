@@ -280,7 +280,7 @@ class CommentsIndex extends React.Component {
                             {this.checkIfIsMine(e.user_id) ?
                                 <React.Fragment>
                                     &nbsp;|&nbsp;
-                                    <Link to={'/'}>edit</Link>&nbsp;|&nbsp;
+                                    <Link to={'/comments/'+ e.id + '/edit'}>edit</Link>&nbsp;|&nbsp;
                                     <a href="#" onClick={() => this.deleteComment(e.id)}>delete</a>
                                 </React.Fragment> : null
                             }

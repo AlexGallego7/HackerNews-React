@@ -212,7 +212,7 @@ class ContribShow extends React.Component {
                             created&nbsp;
                             <TimeAgo datetime={contribution.created_at} locale='en_US'/>
                         </small>
-                        <p style={{marginTop: '7px'}}>{contribution.text}</p>
+                        <p style={{marginTop: '7px', marginLeft: '6px'}}>{contribution.text}</p>
                     </div>
                     <div className="content">
                         <form>
