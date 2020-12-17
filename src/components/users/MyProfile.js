@@ -16,7 +16,6 @@ class MyProfile extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.addOneHour = this.addOneHour.bind(this)
     }
 
     componentDidMount() {
